@@ -1,11 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/index.css';
+import { Layout } from '@widgets/layout/Layout';
 
 export function App() {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">Welcome to the App</h1>
+      <Layout />
     </div>
   );
 }

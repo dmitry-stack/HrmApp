@@ -7,6 +7,25 @@
     "types": ["vite/client"],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@": ["src/*"],
+      "@app": ["src/app"],
+      "@app/*": ["src/app/*"],
+      "@entities": ["src/entities"],
+      "@entities/*": ["src/entities/*"],
+      "@features": ["src/features"],
+      "@features/*": ["src/features/*"],
+      "@pages": ["src/pages"],
+      "@pages/*": ["src/pages/*"],
+      "@routes": ["src/routes"],
+      "@routes/*": ["src/routes/*"],
+      "@shared": ["src/shared"],
+      "@shared/*": ["src/shared/*"],
+      "@widgets": ["src/widgets"],
+      "@widgets/*": ["src/widgets/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
