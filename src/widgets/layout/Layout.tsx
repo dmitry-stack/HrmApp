@@ -1,7 +1,7 @@
 import { Navbar } from '@widgets/navbar/Navbar';
 import { Header } from '@widgets/header/Header';
 
-export function Layout() {
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative min-h-screen bg-white">
       <header className="pl-18">
@@ -12,7 +12,7 @@ export function Layout() {
         <Navbar />
       </nav>
 
-      <main />
+      <main>{children}</main>
     </div>
   );
 }
