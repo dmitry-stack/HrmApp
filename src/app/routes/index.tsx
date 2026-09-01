@@ -1,5 +1,6 @@
 import { createRoute, redirect } from '@tanstack/react-router';
 import { DealsPage } from '@pages/deals/DealsPage';
+import { CandidatesPage } from '@pages/candidates/CandidatesPage';
 import { Route as rootRoute } from './__route';
 
 const indexRoute = createRoute({
@@ -19,7 +20,7 @@ const dealsRoute = createRoute({
 const canditatesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/candidates',
-  component: () => <div>Candidates</div>,
+  component: CandidatesPage,
 });
 
 const profileRoute = createRoute({
