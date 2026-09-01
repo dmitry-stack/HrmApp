@@ -15,7 +15,11 @@ export function SpecialistCard({
     <div className="w-full rounded-xl bg-white p-3 shadow-sm">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <input type="checkbox" className="h-4 w-4 accent-[#707FDD]" />
+          <input
+            type="checkbox"
+            className="h-4 w-4 accent-[#707FDD]"
+            aria-label="Select specialist"
+          />
           <h2 className="text-[16px] font-semibold text-[#343434]">{specialization}</h2>
         </div>
       </div>

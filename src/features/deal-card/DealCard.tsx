@@ -7,7 +7,11 @@ export function DealCard() {
       <div className="flex h-220 w-90 flex-col overflow-hidden rounded-xl bg-[#F1F2F7] p-3">
         <div className="flex items-center justify-between px-2 py-2">
           <div className="flex items-center gap-2">
-            <input type="checkbox" className="h-5 w-5 accent-[#707FDD]" />
+            <input
+              type="checkbox"
+              className="h-5 w-5 accent-[#707FDD]"
+              aria-label="Select deal"
+            />
             <h2 className="text-[16px] font-semibold text-[#343434]">Open Deal</h2>
           </div>
 

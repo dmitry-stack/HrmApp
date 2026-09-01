@@ -1,6 +1,6 @@
 export function DealCardFooter({
   title = 'Weighted amount',
-  amount = ' $0',
+  amount = '$0',
   color = '#000000',
 }: {
   title?: string;
