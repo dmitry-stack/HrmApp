@@ -57,7 +57,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="flex h-screen w-18 flex-col items-center border-r border-[#F4F4F4] bg-white px-3 py-5 sm:gap-6 lg:gap-8">
+    <nav className="flex h-full w-18 flex-col items-center border-r border-[#F4F4F4] bg-white px-3 py-5 pr-4 sm:gap-6 lg:gap-8">
       <div className="flex flex-col items-center gap-4">
         {topNavItems.map(({ icon, label }) => renderButton(icon, label))}
       </div>

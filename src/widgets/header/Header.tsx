@@ -37,7 +37,7 @@ export function Header() {
     );
   };
   return (
-    <header className="flex flex-col gap-4 border-b border-[#F4F4F4] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+    <header className="flex flex-col gap-4 border-b border-[#F4F4F4] px-4 py-4 pb-2 sm:flex-row sm:items-center sm:justify-between sm:px-8">
       <div className="relative w-full max-w-105">
         <input
           type="search"
