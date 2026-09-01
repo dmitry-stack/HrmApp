@@ -1,21 +1,19 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { createRouter, RouterProvider } from '@tanstack/react-router';
 import './styles/index.css';
-import { Layout } from '@widgets/layout/Layout';
-import { DealsPage } from '@/pages/deals/DealsPage';
+import { routeTree } from './routes';
 
-export function App() {
-  return (
-    <div>
-      <Layout>
-        <DealsPage />
-      </Layout>
-    </div>
-  );
+const router = createRouter({ routeTree });
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
 }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </StrictMode>
 );
