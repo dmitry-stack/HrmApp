@@ -42,6 +42,8 @@ export function Header() {
       <SearchInput
         placeholder="Search by name, job, email & Linkedin URL"
         maxWidth="414px"
+        value=""
+        onChange={() => {}}
       />
 
       <h2 className="text-center text-[16px] font-normal text-[#343E48] ">CRM Recruit</h2>

@@ -1,0 +1,148 @@
+import { collection, writeBatch, doc, Timestamp } from 'firebase/firestore';
+import { db } from '@/shared/api/firebase';
+import type { CandidateFirestoreDto } from '../model/types';
+
+const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
+  {
+    name: 'Sugar Khanapurkar',
+    city: 'London',
+    title: 'Recruiter',
+    resumeUrl: 'https://example.com/resumes/sugar-khanapurkar.pdf',
+    owner: 'Shrini',
+    source: 'Other',
+    profileRequest: 'Pending',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T10:00:00')),
+  },
+  {
+    name: 'Rebecca Kellner',
+    city: 'Paris',
+    title: 'Owner Director',
+    resumeUrl: 'https://example.com/resumes/rebecca-kellner.pdf',
+    owner: 'Jade',
+    source: 'LinkedIn',
+    profileRequest: 'Approved',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T11:15:00')),
+  },
+  {
+    name: 'Andreas Schaefer',
+    city: 'Aberdeen',
+    title: 'Senior Customer',
+    resumeUrl: 'https://example.com/resumes/andreas-schaefer.pdf',
+    owner: 'Madhur',
+    source: 'HeadHunter',
+    profileRequest: 'Pending',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T12:30:00')),
+  },
+  {
+    name: 'Mazhar Shaikh',
+    city: 'Marseille',
+    title: 'Risk Officer',
+    resumeUrl: 'https://example.com/resumes/mazhar-shaikh.pdf',
+    owner: 'Sarvesh',
+    source: 'Referral',
+    profileRequest: 'Approved',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T14:00:00')),
+  },
+  {
+    name: 'Jeccica Alliance',
+    city: 'Lisbon',
+    title: 'CEO',
+    resumeUrl: 'https://example.com/resumes/jeccica-alliance.pdf',
+    owner: 'Gabriel',
+    source: 'Career Site',
+    profileRequest: 'Approved',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T15:20:00')),
+  },
+  {
+    name: 'Shreyas Kavathekar',
+    city: 'Bangor',
+    title: 'Head of IPD',
+    resumeUrl: 'https://example.com/resumes/shreyas-kavathekar.pdf',
+    owner: 'Shrini',
+    source: 'LinkedIn',
+    profileRequest: 'Pending',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T16:00:00')),
+  },
+  {
+    name: 'Ayman Jarrous',
+    city: 'Lyon',
+    title: 'Software Development',
+    resumeUrl: 'https://example.com/resumes/ayman-jarrous.pdf',
+    owner: 'Sarvesh',
+    source: 'Referral',
+    profileRequest: 'Pending',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T16:45:00')),
+  },
+  {
+    name: 'Charlene Clarke',
+    city: 'Bradford',
+    title: 'Finance Lawyer',
+    resumeUrl: 'https://example.com/resumes/charlene-clarke.pdf',
+    owner: 'Alba',
+    source: 'Other',
+    profileRequest: 'Rejected',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T17:10:00')),
+  },
+  {
+    name: 'Arron Gunn',
+    city: 'Lisbon',
+    title: 'Officer Credit Policies',
+    resumeUrl: 'https://example.com/resumes/arron-gunn.pdf',
+    owner: 'Ambre',
+    source: 'Career Site',
+    profileRequest: 'Pending',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T17:50:00')),
+  },
+  {
+    name: 'Adel Mekha',
+    city: 'Belfast',
+    title: 'Analyst',
+    resumeUrl: 'https://example.com/resumes/adel-mekha.pdf',
+    owner: 'Raphaël',
+    source: 'LinkedIn',
+    profileRequest: 'Approved',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T18:30:00')),
+  },
+  {
+    name: 'Jason Holdi',
+    city: 'London',
+    title: 'Kafka Engineer',
+    resumeUrl: 'https://example.com/resumes/jason-holdi.pdf',
+    owner: 'Madhur',
+    source: 'HeadHunter',
+    profileRequest: 'Pending',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T19:00:00')),
+  },
+  {
+    name: 'Sarvesh Gokhale',
+    city: 'Lyon',
+    title: 'Industry Leader supporting',
+    resumeUrl: 'https://example.com/resumes/sarvesh-gokhale.pdf',
+    owner: 'Louise',
+    source: 'Other',
+    profileRequest: 'Pending',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T19:20:00')),
+  },
+  {
+    name: 'Tom Yurker',
+    city: 'Bradford',
+    title: 'Loan Officer',
+    resumeUrl: 'https://example.com/resumes/tom-yurker.pdf',
+    owner: 'Sarvesh',
+    source: 'Referral',
+    profileRequest: 'Rejected',
+    profileUpdated: Timestamp.fromDate(new Date('2022-09-20T20:00:00')),
+  },
+];
+
+export async function seedCandidatesDatabase(): Promise<void> {
+  const batch = writeBatch(db);
+  const candidatesCollection = collection(db, 'candidates');
+
+  MOCK_CANDIDATES.forEach((candidate) => {
+    const docRef = doc(candidatesCollection);
+    batch.set(docRef, candidate);
+  });
+
+  await batch.commit();
+}
