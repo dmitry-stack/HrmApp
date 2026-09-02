@@ -9,7 +9,7 @@ export function SearchInput({
   placeholder?: string;
   maxWidth?: string;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
 }) {
   return (
     <div className="relative w-full" style={{ maxWidth: maxWidth }}>

@@ -7,6 +7,7 @@ export const candidateKeys = {
   lists: () => [...candidateKeys.all, 'list'] as const,
   details: () => [...candidateKeys.all, 'detail'] as const,
   detail: (id: string) => [...candidateKeys.details(), id] as const,
+  amount: (amount: number) => [...candidateKeys.lists(), amount] as const,
 };
 
 export function useCandidatesQuery() {
@@ -21,6 +22,13 @@ export function useCandidateQuery(id: string) {
     queryKey: candidateKeys.detail(id),
     queryFn: () => candidateService.getById(id),
     enabled: Boolean(id),
+  });
+}
+
+export function useCandidatesAmountQuery(amount: number) {
+  return useQuery({
+    queryKey: [...candidateKeys.lists(), amount],
+    queryFn: () => candidateService.getAmount(amount),
   });
 }
 

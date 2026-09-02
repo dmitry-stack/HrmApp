@@ -1,4 +1,14 @@
-import { collection, getDocs, getDoc, doc, addDoc, Timestamp } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  addDoc,
+  Timestamp,
+  query,
+  orderBy,
+  limit,
+} from 'firebase/firestore';
 import { db } from '@/shared/api/firebase';
 import { candidateConverter } from './candidate.converter';
 import type { Candidate, CreateCandidateDto } from '../model/types';
@@ -10,6 +20,12 @@ const candidatesRef = collection(db, COLLECTION_NAME).withConverter(candidateCon
 export const candidateService = {
   async getAll(): Promise<Candidate[]> {
     const snapshot = await getDocs(candidatesRef);
+    return snapshot.docs.map((doc) => doc.data());
+  },
+
+  async getAmount(amount: number): Promise<Candidate[]> {
+    const q = query(candidatesRef, orderBy('profileUpdated', 'desc'), limit(amount));
+    const snapshot = await getDocs(q);
     return snapshot.docs.map((doc) => doc.data());
   },
 
