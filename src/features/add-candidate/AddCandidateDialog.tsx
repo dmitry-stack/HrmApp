@@ -135,8 +135,10 @@ export function AddCandidateDialog() {
           <div>
             <Label className="mb-2">Source</Label>
             <Select
-              value={'source'}
-              onValueChange={(v) => setValue('source', v as CreateCandidateDto['source'])}
+              defaultValue="Other"
+              onValueChange={(v) =>
+                setValue('source', v as CreateCandidateDto['source'], { shouldDirty: true })
+              }
             >
               <SelectTrigger>
                 <SelectValue />
