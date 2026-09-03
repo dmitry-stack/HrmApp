@@ -20,6 +20,7 @@ export const candidateConverter: FirestoreDataConverter<
       source: candidate.source,
       profileRequest: candidate.profileRequest,
       profileUpdated: Timestamp.fromDate(candidate.profileUpdated),
+      projectId: candidate.projectId,
     };
   },
   fromFirestore(
@@ -37,6 +38,7 @@ export const candidateConverter: FirestoreDataConverter<
       source: data.source,
       profileRequest: data.profileRequest,
       profileUpdated: data.profileUpdated.toDate(),
+      projectId: data.projectId ?? null,
     };
   },
 };

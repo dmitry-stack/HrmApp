@@ -8,10 +8,12 @@ import {
   query,
   orderBy,
   limit,
+  writeBatch,
 } from 'firebase/firestore';
 import { db } from '@/shared/api/firebase';
 import { candidateConverter } from './candidate.converter';
 import type { Candidate, CreateCandidateDto } from '../model/types';
+import type { ProjectId } from '@/entities/project/model/constants';
 
 const COLLECTION_NAME = 'candidates';
 
@@ -41,5 +43,13 @@ export const candidateService = {
       profileUpdated: Timestamp.now(),
     });
     return docRef.id;
+  },
+
+  async addCandidatesToProject(candidateIds: string[], projectId: ProjectId) {
+    const batch = writeBatch(db);
+    candidateIds.forEach((id) => {
+      batch.update(doc(db, 'candidates', id), { projectId });
+    });
+    await batch.commit();
   },
 };

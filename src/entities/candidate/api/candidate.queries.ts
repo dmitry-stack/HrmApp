@@ -1,9 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { candidateService } from './candidate.service';
 import type { CreateCandidateDto } from '../model/types';
+import type { ProjectId } from '@/entities/project/model/constants';
 
 export const candidateKeys = {
   all: ['candidates'] as const,
+
   lists: () => [...candidateKeys.all, 'list'] as const,
   details: () => [...candidateKeys.all, 'detail'] as const,
   detail: (id: string) => [...candidateKeys.details(), id] as const,
@@ -38,6 +40,22 @@ export function useCreateCandidateMutation() {
 
   return useMutation({
     mutationFn: (dto: CreateCandidateDto) => candidateService.create(dto),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: candidateKeys.lists() });
+    },
+  });
+}
+
+export function useAddCandidatesToProject() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      candidateIds,
+      projectId,
+    }: {
+      candidateIds: string[];
+      projectId: ProjectId;
+    }) => candidateService.addCandidatesToProject(candidateIds, projectId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: candidateKeys.lists() });
     },
