@@ -14,6 +14,7 @@ export function useCandidatesQuery() {
   return useQuery({
     queryKey: candidateKeys.lists(),
     queryFn: () => candidateService.getAll(),
+    staleTime: 5 * 60 * 1000,
   });
 }
 

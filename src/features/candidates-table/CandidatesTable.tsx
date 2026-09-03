@@ -1,12 +1,17 @@
-import type { Candidate } from '@/entities/canditate/model/types';
-
+import type { Candidate } from '@/entities/candidate/model/types';
 import resume from '@/shared/assets/candidates/resume.svg';
 
 interface CandidatesTableProps {
   candidates: Candidate[];
+  selectedCandidateIds: string[];
+  onCandidateSelection: (candidateId: string, checked: boolean) => void;
 }
 
-export function CandidatesTable({ candidates }: CandidatesTableProps) {
+export function CandidatesTable({
+  candidates,
+  selectedCandidateIds,
+  onCandidateSelection,
+}: CandidatesTableProps) {
   return (
     <div>
       <table className="w-full border-collapse border  border-[#F4F4F4]">
@@ -30,7 +35,12 @@ export function CandidatesTable({ candidates }: CandidatesTableProps) {
           {candidates.map((candidate) => (
             <tr key={candidate.id} className="border-b border-[#F4F4F4]">
               <td className="p-3">
-                <input type="checkbox" className="h-4 w-4 accent-[#707FDD]" />
+                <input
+                  type="checkbox"
+                  className="h-4 w-4 accent-[#707FDD]"
+                  checked={selectedCandidateIds.includes(candidate.id)}
+                  onChange={(e) => onCandidateSelection(candidate.id, e.target.checked)}
+                />
               </td>
               <td className="p-3">{candidate.id}</td>
               <td className="p-3">{candidate.name}</td>

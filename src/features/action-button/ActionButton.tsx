@@ -5,9 +5,15 @@ type ActionButtonProps = {
     right?: string;
   };
   variant?: 'primary' | 'secondary';
+  onClick?: () => void;
 };
 
-export function ActionButton({ label, icon, variant = 'primary' }: ActionButtonProps) {
+export function ActionButton({
+  label,
+  icon,
+  variant = 'primary',
+  onClick,
+}: ActionButtonProps) {
   const base =
     'inline-flex items-center justify-center gap-2 rounded-sm px-4 py-3 text-sm font-medium transition-colors';
 
@@ -17,7 +23,7 @@ export function ActionButton({ label, icon, variant = 'primary' }: ActionButtonP
   };
 
   return (
-    <button className={`${base} ${variants[variant]}`}>
+    <button className={`${base} ${variants[variant]}`} onClick={onClick}>
       {icon?.left && <img src={icon.left} alt="" className="h-4 w-4" />}
       {label}
       {icon?.right && <img src={icon.right} alt="" className="h-3 w-3" />}

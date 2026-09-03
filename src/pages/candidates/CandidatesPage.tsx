@@ -1,36 +1,78 @@
 import tables from '@shared/assets/candidates/tables.svg';
-import dropdown from '@shared/assets/candidates/arrow.svg';
-import plus from '@shared/assets/header/plus.svg';
-import { ActionButton } from '@features/action-button/ActionButton';
+
 import { SearchInput } from '@features/search-input/SearchInput';
 import { CandidatesTable } from '@features/candidates-table/CandidatesTable';
-import { useCandidatesQuery } from '@entities/canditate/api/candidate.queries';
-import { Loader2, Database } from 'lucide-react';
+import { useCandidatesQuery } from '@/entities/candidate/api/candidate.queries';
+import { Loader2 } from 'lucide-react';
+//import { Database } from 'lucide-react';
 import { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { seedCandidatesDatabase } from '@entities/canditate/api/candidate.seed';
-import { candidateKeys } from '@entities/canditate/api/candidate.queries';
+// import { useQueryClient } from '@tanstack/react-query';
+// import { seedCandidatesDatabase } from '@entities/canditate/api/candidate.seed';
+// import { candidateKeys } from '@entities/canditate/api/candidate.queries';
 import { ActionBar } from '@/features/table-action-bar/ActionBar';
+import { AddCandidateDialog } from '@/features/add-candidate/AddCandidateDialog';
+import { AddToProject } from '@/features/add-to-project/AddToProject';
 
 export function CandidatesPage() {
   const { data: candidates, isLoading, isError, error } = useCandidatesQuery();
 
-  const [isSeeding, setIsSeeding] = useState(false);
-  const queryClient = useQueryClient();
+  // const [isSeeding, setIsSeeding] = useState(false);
+  //const queryClient = useQueryClient();
 
-  const handleSeedData = async () => {
-    try {
-      setIsSeeding(true);
-      await seedCandidatesDatabase();
+  //   const handleSeedData = async () => {
+  //     try {
+  //       setIsSeeding(true);
+  //       await seedCandidatesDatabase();
 
-      await queryClient.invalidateQueries({ queryKey: candidateKeys.lists() });
-    } catch (err) {
-      console.error('Database seeding error:', err);
-    } finally {
-      setIsSeeding(false);
-    }
+  //       await queryClient.invalidateQueries({ queryKey: candidateKeys.lists() });
+  //     } catch (err) {
+  //       console.error('Database seeding error:', err);
+  //     } finally {
+  //       setIsSeeding(false);
+  //     }
+  //   };
+
+  //temporary function to get checked candidates from the table
+
+  //   function getCheckedCandidates() {
+  //     const checkboxes = document.querySelectorAll<HTMLInputElement>(
+  //       'input[type="checkbox"]:checked'
+  //     );
+  //     const checkedIds: string[] = [];
+  //     checkboxes.forEach((checkbox) => {
+  //       const row = checkbox.closest('tr');
+  //       if (row) {
+  //         const idCell = row.querySelector('td:nth-child(2)');
+  //         if (idCell) {
+  //           checkedIds.push(idCell.textContent || '');
+  //         }
+  //       }
+  //     });
+  //     return checkedIds;
+  //   }
+
+  const [searchValue, setSearchValue] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
+  //   const [selectedCandidates, setSelectedCandidates] = useState<string[]>([]);
+  const [selectedCandidateIds, setSelectedCandidateIds] = useState<string[]>([]);
+
+  const handleCandidateSelection = (candidateId: string, checked: boolean) => {
+    setSelectedCandidateIds((current) =>
+      checked ? [...current, candidateId] : current.filter((id) => id !== candidateId)
+    );
   };
 
+  const handleAddToProject = (projectId: string) => {
+    if (selectedCandidateIds.length === 0) {
+      alert('Please select at least one candidate to add to the project.');
+      return;
+    }
+    console.log({ projectId, candidateIds: selectedCandidateIds });
+
+    // Later:
+    // addCandidatesToProject({ projectId, candidateIds: selectedCandidateIds });
+  };
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
     setCurrentPage(1);
@@ -40,10 +82,6 @@ export function CandidatesPage() {
     setRecordsPerPage(pageSize);
     setCurrentPage(1);
   };
-
-  const [searchValue, setSearchValue] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage, setRecordsPerPage] = useState(10);
 
   const filteredCandidates = (candidates ?? []).filter((candidate) => {
     const searchLower = searchValue.toLowerCase();
@@ -73,22 +111,36 @@ export function CandidatesPage() {
             Page {currentPage}
           </h2>
         </div>
-        <button
+        {/* <button
           onClick={handleSeedData}
           disabled={isSeeding}
           className="flex items-center gap-2 px-4 ml-4 py-1.5 bg-[#707FDD] hover:bg-[#6476d6] text-white  whitespace-nowrap rounded-md text-sm font-medium transition disabled:opacity-50"
         >
           <Database className="w-4 h-4" />
           {isSeeding ? 'Filling Firestore...' : 'Fill with test candidates'}
-        </button>
+        </button> */}
 
         <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
-          <ActionButton
-            label="Add candidate"
+          <AddCandidateDialog />
+          <AddToProject onSelectProject={handleAddToProject} />
+
+          {/* //   <ActionButton
+          //     label="Add candidate"
+          //     icon={{ left: plus, right: dropdown }}
+          //     variant="primary"
+
+          // }
+          // /> */}
+
+          {/* <ActionButton
+            label="Add to Project"
             icon={{ left: plus, right: dropdown }}
             variant="primary"
-          />
-          <ActionButton label="Resume Parser" icon={{ left: plus }} variant="primary" />
+            onClick={() => {
+              const checkedCandidates = getCheckedCandidates();
+              console.log('Checked candidates:', checkedCandidates);
+            }}
+          /> */}
           <div className="w-full sm:w-auto sm:max-w-55">
             <SearchInput
               value={searchValue}
@@ -116,7 +168,11 @@ export function CandidatesPage() {
 
       {!isLoading && !isError && (
         <div className="overflow-x-auto">
-          <CandidatesTable candidates={paginatedCandidates} />
+          <CandidatesTable
+            selectedCandidateIds={selectedCandidateIds}
+            onCandidateSelection={handleCandidateSelection}
+            candidates={paginatedCandidates}
+          />
           <ActionBar
             totalRecords={filteredCandidates.length}
             currentPage={currentPage}
