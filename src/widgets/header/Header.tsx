@@ -42,7 +42,6 @@ export function Header() {
       <SearchInput
         placeholder="Search by name, job, email & Linkedin URL"
         maxWidth="414px"
-        value=""
         onChange={() => {}}
       />
 

@@ -73,7 +73,7 @@ export function AddCandidateDialog() {
             <Input
               id="name"
               className="focus-visible:ring-1 focus-visible:ring-[#707FDD] focus-visible:border-[#707FDD]"
-              {...register('name', { required: 'Field is requiered' })}
+              {...register('name', { required: 'Field is required' })}
             />
             {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
           </div>
@@ -84,7 +84,7 @@ export function AddCandidateDialog() {
             <Input
               id="city"
               className="focus-visible:ring-1 focus-visible:ring-[#707FDD] focus-visible:border-[#707FDD]"
-              {...register('city', { required: 'Field is requiered' })}
+              {...register('city', { required: 'Field is required' })}
             />
             {errors.city && <p className="text-sm text-red-500">{errors.city.message}</p>}
           </div>
@@ -95,7 +95,7 @@ export function AddCandidateDialog() {
             <Input
               id="title"
               className="focus-visible:ring-1 focus-visible:ring-[#707FDD] focus-visible:border-[#707FDD] "
-              {...register('title', { required: 'Field is requiered' })}
+              {...register('title', { required: 'Field is required' })}
             />
             {errors.title && (
               <p className="text-sm text-red-500">{errors.title.message}</p>

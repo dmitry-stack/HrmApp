@@ -23,7 +23,7 @@ export function ActionButton({
   };
 
   return (
-    <button className={`${base} ${variants[variant]}`} onClick={onClick}>
+    <button type="button" className={`${base} ${variants[variant]}`} onClick={onClick}>
       {icon?.left && <img src={icon.left} alt="" className="h-4 w-4" />}
       {label}
       {icon?.right && <img src={icon.right} alt="" className="h-3 w-3" />}
