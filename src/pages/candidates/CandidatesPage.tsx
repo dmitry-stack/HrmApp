@@ -12,49 +12,19 @@ import { useState } from 'react';
 import { ActionBar } from '@/features/table-action-bar/ActionBar';
 import { AddCandidateDialog } from '@/features/add-candidate/AddCandidateDialog';
 import { AddToProject } from '@/features/add-to-project/AddToProject';
+import { toast } from 'sonner';
+import type { ProjectId } from '@/entities/project/model/constants';
+import { DEFAULT_PROJECTS } from '@/entities/project/model/constants';
+import { useAddCandidatesToProject } from '@/entities/candidate/api/candidate.queries';
 
 export function CandidatesPage() {
   const { data: candidates, isLoading, isError, error } = useCandidatesQuery();
-
-  // const [isSeeding, setIsSeeding] = useState(false);
-  //const queryClient = useQueryClient();
-
-  //   const handleSeedData = async () => {
-  //     try {
-  //       setIsSeeding(true);
-  //       await seedCandidatesDatabase();
-
-  //       await queryClient.invalidateQueries({ queryKey: candidateKeys.lists() });
-  //     } catch (err) {
-  //       console.error('Database seeding error:', err);
-  //     } finally {
-  //       setIsSeeding(false);
-  //     }
-  //   };
-
-  //temporary function to get checked candidates from the table
-
-  //   function getCheckedCandidates() {
-  //     const checkboxes = document.querySelectorAll<HTMLInputElement>(
-  //       'input[type="checkbox"]:checked'
-  //     );
-  //     const checkedIds: string[] = [];
-  //     checkboxes.forEach((checkbox) => {
-  //       const row = checkbox.closest('tr');
-  //       if (row) {
-  //         const idCell = row.querySelector('td:nth-child(2)');
-  //         if (idCell) {
-  //           checkedIds.push(idCell.textContent || '');
-  //         }
-  //       }
-  //     });
-  //     return checkedIds;
-  //   }
+  const { mutate: addToProject, isPending: isAddingToProject } =
+    useAddCandidatesToProject();
 
   const [searchValue, setSearchValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(10);
-  //   const [selectedCandidates, setSelectedCandidates] = useState<string[]>([]);
   const [selectedCandidateIds, setSelectedCandidateIds] = useState<string[]>([]);
 
   const handleCandidateSelection = (candidateId: string, checked: boolean) => {
@@ -63,15 +33,29 @@ export function CandidatesPage() {
     );
   };
 
-  const handleAddToProject = (projectId: string) => {
+  const handleAddToProject = (projectId: ProjectId) => {
     if (selectedCandidateIds.length === 0) {
-      alert('Please select at least one candidate to add to the project.');
+      toast.error('Select at least one candidate first');
       return;
     }
-    console.log({ projectId, candidateIds: selectedCandidateIds });
 
-    // Later:
-    // addCandidatesToProject({ projectId, candidateIds: selectedCandidateIds });
+    const projectName =
+      DEFAULT_PROJECTS.find((p) => p.id === projectId)?.name ?? projectId;
+
+    addToProject(
+      { candidateIds: selectedCandidateIds, projectId },
+      {
+        onSuccess: () => {
+          toast.success(
+            `Added ${selectedCandidateIds.length} candidate(s) to ${projectName}`
+          );
+          setSelectedCandidateIds([]);
+        },
+        onError: () => {
+          toast.error('Failed to add candidates to project');
+        },
+      }
+    );
   };
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
@@ -111,36 +95,14 @@ export function CandidatesPage() {
             Page {currentPage}
           </h2>
         </div>
-        {/* <button
-          onClick={handleSeedData}
-          disabled={isSeeding}
-          className="flex items-center gap-2 px-4 ml-4 py-1.5 bg-[#707FDD] hover:bg-[#6476d6] text-white  whitespace-nowrap rounded-md text-sm font-medium transition disabled:opacity-50"
-        >
-          <Database className="w-4 h-4" />
-          {isSeeding ? 'Filling Firestore...' : 'Fill with test candidates'}
-        </button> */}
 
         <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
           <AddCandidateDialog />
-          <AddToProject onSelectProject={handleAddToProject} />
+          <AddToProject
+            onSelectProject={handleAddToProject}
+            disabled={isAddingToProject}
+          />
 
-          {/* //   <ActionButton
-          //     label="Add candidate"
-          //     icon={{ left: plus, right: dropdown }}
-          //     variant="primary"
-
-          // }
-          // /> */}
-
-          {/* <ActionButton
-            label="Add to Project"
-            icon={{ left: plus, right: dropdown }}
-            variant="primary"
-            onClick={() => {
-              const checkedCandidates = getCheckedCandidates();
-              console.log('Checked candidates:', checkedCandidates);
-            }}
-          /> */}
           <div className="w-full sm:w-auto sm:max-w-55">
             <SearchInput
               value={searchValue}

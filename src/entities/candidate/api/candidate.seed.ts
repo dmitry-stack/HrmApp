@@ -12,6 +12,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'Other',
     profileRequest: 'Pending',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T10:00:00')),
+    expectedSalary: 55000,
+    salaryCurrency: 'EUR',
   },
   {
     name: 'Rebecca Kellner',
@@ -22,6 +24,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'LinkedIn',
     profileRequest: 'Approved',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T11:15:00')),
+    expectedSalary: 140000,
+    salaryCurrency: 'EUR',
   },
   {
     name: 'Andreas Schaefer',
@@ -32,6 +36,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'HeadHunter',
     profileRequest: 'Pending',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T12:30:00')),
+    expectedSalary: 48000,
+    salaryCurrency: 'USD',
   },
   {
     name: 'Mazhar Shaikh',
@@ -42,6 +48,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'Referral',
     profileRequest: 'Approved',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T14:00:00')),
+    expectedSalary: 72000,
+    salaryCurrency: 'EUR',
   },
   {
     name: 'Jeccica Alliance',
@@ -52,6 +60,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'Career Site',
     profileRequest: 'Approved',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T15:20:00')),
+    expectedSalary: 210000,
+    salaryCurrency: 'USD',
   },
   {
     name: 'Shreyas Kavathekar',
@@ -62,6 +72,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'LinkedIn',
     profileRequest: 'Pending',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T16:00:00')),
+    expectedSalary: 115000,
+    salaryCurrency: 'USD',
   },
   {
     name: 'Ayman Jarrous',
@@ -72,6 +84,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'Referral',
     profileRequest: 'Pending',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T16:45:00')),
+    expectedSalary: 95000,
+    salaryCurrency: 'EUR',
   },
   {
     name: 'Charlene Clarke',
@@ -82,6 +96,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'Other',
     profileRequest: 'Rejected',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T17:10:00')),
+    expectedSalary: 85000,
+    salaryCurrency: 'USD',
   },
   {
     name: 'Arron Gunn',
@@ -92,6 +108,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'Career Site',
     profileRequest: 'Pending',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T17:50:00')),
+    expectedSalary: 64000,
+    salaryCurrency: 'EUR',
   },
   {
     name: 'Adel Mekha',
@@ -102,6 +120,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'LinkedIn',
     profileRequest: 'Approved',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T18:30:00')),
+    expectedSalary: 52000,
+    salaryCurrency: 'USD',
   },
   {
     name: 'Jason Holdi',
@@ -112,6 +132,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'HeadHunter',
     profileRequest: 'Pending',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T19:00:00')),
+    expectedSalary: 125000,
+    salaryCurrency: 'USD',
   },
   {
     name: 'Sarvesh Gokhale',
@@ -122,6 +144,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'Other',
     profileRequest: 'Pending',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T19:20:00')),
+    expectedSalary: 88000,
+    salaryCurrency: 'EUR',
   },
   {
     name: 'Tom Yurker',
@@ -132,6 +156,8 @@ const MOCK_CANDIDATES: CandidateFirestoreDto[] = [
     source: 'Referral',
     profileRequest: 'Rejected',
     profileUpdated: Timestamp.fromDate(new Date('2022-09-20T20:00:00')),
+    expectedSalary: 58000,
+    salaryCurrency: 'USD',
   },
 ];
 
