@@ -42,6 +42,8 @@ export function AddCandidateDialog() {
       owner: '',
       source: 'Other',
       profileRequest: 'Pending',
+      expectedSalary: 0,
+      salaryCurrency: 'USD',
     },
   });
 
@@ -132,12 +134,53 @@ export function AddCandidateDialog() {
             )}
           </div>
 
+          <div className="flex items-center gap-4">
+            <Label htmlFor="owner" className="mb-2">
+              Expected Salary
+            </Label>
+            <Input
+              id="expectedSalary"
+              type="number"
+              className="focus-visible:ring-1 focus-visible:ring-[#707FDD] focus-visible:border-[#707FDD] "
+              {...register('expectedSalary', {
+                required: 'Field is required',
+                valueAsNumber: true,
+                min: { value: 0, message: 'Must be positive' },
+              })}
+            />
+            {errors.expectedSalary && (
+              <p className="text-sm text-red-500">{errors.expectedSalary.message}</p>
+            )}
+            <div>
+              <Label>Currency</Label>
+              <Select
+                defaultValue="USD"
+                onValueChange={(v) =>
+                  setValue('salaryCurrency', v as CreateCandidateDto['salaryCurrency'], {
+                    shouldDirty: true,
+                  })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="USD">USD</SelectItem>
+                  <SelectItem value="EUR">EUR</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
           <div>
             <Label className="mb-2">Source</Label>
             <Select
               defaultValue="Other"
               onValueChange={(v) =>
-                setValue('source', v as CreateCandidateDto['source'], { shouldDirty: true })
+                setValue('source', v as CreateCandidateDto['source'], {
+                  shouldDirty: true,
+                })
               }
             >
               <SelectTrigger>
