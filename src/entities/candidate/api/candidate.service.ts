@@ -48,8 +48,11 @@ export const candidateService = {
   async addCandidatesToProject(candidateIds: string[], projectId: ProjectId) {
     const batch = writeBatch(db);
     candidateIds.forEach((id) => {
-      batch.update(doc(db, 'candidates', id), { projectId });
+      batch.update(doc(db, 'candidates', id), {
+        projectId,
+      });
     });
+
     await batch.commit();
   },
 };

@@ -20,14 +20,23 @@ export function DealsPage() {
 
   return (
     <div className="flex min-w-0 gap-4 overflow-x-auto pb-2 pr-1">
-      {DEFAULT_PROJECTS.map((project) => (
-        <div key={project.id} className="shrink-0">
-          <DealCard
-            projectName={project.name}
-            candidates={candidatesByProject.get(project.id) ?? []}
-          />
-        </div>
-      ))}
+      {DEFAULT_PROJECTS.map((project) => {
+        const candidates = candidatesByProject.get(project.id) ?? [];
+
+        if (candidates.length === 0) {
+          return null;
+        }
+
+        return (
+          <div key={project.id} className="shrink-0">
+            <DealCard
+              projectName={project.name}
+              projectCloseDate={project.closeDate}
+              candidates={candidates}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

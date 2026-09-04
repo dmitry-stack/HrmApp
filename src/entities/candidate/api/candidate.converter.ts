@@ -21,6 +21,8 @@ export const candidateConverter: FirestoreDataConverter<
       profileRequest: candidate.profileRequest,
       profileUpdated: Timestamp.fromDate(candidate.profileUpdated),
       projectId: candidate.projectId,
+      expectedSalary: candidate.expectedSalary,
+      salaryCurrency: candidate.salaryCurrency,
     };
   },
   fromFirestore(
@@ -39,6 +41,8 @@ export const candidateConverter: FirestoreDataConverter<
       profileRequest: data.profileRequest,
       profileUpdated: data.profileUpdated.toDate(),
       projectId: data.projectId ?? null,
+      expectedSalary: data.expectedSalary ?? 0,
+      salaryCurrency: data.salaryCurrency ?? 'Other',
     };
   },
 };

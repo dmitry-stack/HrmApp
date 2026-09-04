@@ -11,7 +11,9 @@ export interface Candidate {
   source: 'LinkedIn' | 'HeadHunter' | 'Referral' | 'Career Site' | 'Other';
   profileRequest: 'Pending' | 'Approved' | 'Rejected';
   profileUpdated: Date;
-  projectId: ProjectId | null;
+  projectId?: ProjectId | null;
+  expectedSalary?: number;
+  salaryCurrency?: 'USD' | 'EUR' | 'Other';
 }
 
 export type CreateCandidateDto = Omit<Candidate, 'id' | 'profileUpdated'>;
@@ -25,5 +27,7 @@ export interface CandidateFirestoreDto {
   source: Candidate['source'];
   profileRequest: Candidate['profileRequest'];
   profileUpdated: Timestamp;
-  projectId: ProjectId | null;
+  projectId?: ProjectId | null;
+  expectedSalary?: number;
+  salaryCurrency?: 'USD' | 'EUR' | 'Other';
 }
