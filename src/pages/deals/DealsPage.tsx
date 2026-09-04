@@ -28,11 +28,13 @@ export function DealsPage() {
         }
 
         return (
-          <div key={project.id} className="shrink-0">
+          <div key={project.id} className="shrink-0 self-stretch flex flex-col">
             <DealCard
               projectName={project.name}
               projectCloseDate={project.closeDate}
               candidates={candidates}
+              weightedAmount={project.weightedAmount}
+              totalAmount={project.totalAmount}
             />
           </div>
         );
