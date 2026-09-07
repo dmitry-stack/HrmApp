@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root';
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated';
 import { Route as LoginRouteImport } from './routes/login';
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index';
 import { Route as AuthenticatedBriefcaseRouteImport } from './routes/_authenticated/briefcase';
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar';
 import { Route as AuthenticatedCandidatesRouteImport } from './routes/_authenticated/candidates';
@@ -29,6 +30,11 @@ const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
+} as any);
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRoute,
 } as any);
 const AuthenticatedBriefcaseRoute = AuthenticatedBriefcaseRouteImport.update({
   id: '/briefcase',
@@ -77,7 +83,7 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
 } as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthenticatedRouteWithChildren;
+  '/': typeof AuthenticatedIndexRoute;
   '/login': typeof LoginRoute;
   '/briefcase': typeof AuthenticatedBriefcaseRoute;
   '/calendar': typeof AuthenticatedCalendarRoute;
@@ -90,7 +96,6 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof AuthenticatedRouteWithChildren;
   '/login': typeof LoginRoute;
   '/briefcase': typeof AuthenticatedBriefcaseRoute;
   '/calendar': typeof AuthenticatedCalendarRoute;
@@ -101,6 +106,7 @@ export interface FileRoutesByTo {
   '/pig': typeof AuthenticatedPigRoute;
   '/profile': typeof AuthenticatedProfileRoute;
   '/settings': typeof AuthenticatedSettingsRoute;
+  '/': typeof AuthenticatedIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -115,6 +121,7 @@ export interface FileRoutesById {
   '/_authenticated/pig': typeof AuthenticatedPigRoute;
   '/_authenticated/profile': typeof AuthenticatedProfileRoute;
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute;
+  '/_authenticated/': typeof AuthenticatedIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
@@ -132,7 +139,6 @@ export interface FileRouteTypes {
     | '/settings';
   fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
     | '/login'
     | '/briefcase'
     | '/calendar'
@@ -142,7 +148,8 @@ export interface FileRouteTypes {
     | '/envelope'
     | '/pig'
     | '/profile'
-    | '/settings';
+    | '/settings'
+    | '/';
   id:
     | '__root__'
     | '/_authenticated'
@@ -155,7 +162,8 @@ export interface FileRouteTypes {
     | '/_authenticated/envelope'
     | '/_authenticated/pig'
     | '/_authenticated/profile'
-    | '/_authenticated/settings';
+    | '/_authenticated/settings'
+    | '/_authenticated/';
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -178,6 +186,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/login';
       preLoaderRoute: typeof LoginRouteImport;
       parentRoute: typeof rootRouteImport;
+    };
+    '/_authenticated/': {
+      id: '/_authenticated/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport;
+      parentRoute: typeof AuthenticatedRoute;
     };
     '/_authenticated/briefcase': {
       id: '/_authenticated/briefcase';
@@ -255,6 +270,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedPigRoute: typeof AuthenticatedPigRoute;
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute;
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute;
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -267,6 +283,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPigRoute: AuthenticatedPigRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 };
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
