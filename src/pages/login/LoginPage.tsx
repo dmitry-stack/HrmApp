@@ -1,21 +1,16 @@
-import { signInWithGoogle } from '@/shared/api/firebase';
-import { useRouter, useSearch } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import google from '@shared/assets/google.svg';
 import apple from '@shared/assets/apple.svg';
 import twitter from '@shared/assets/twitter.svg';
+import { useSession } from '@/entities/session/model/useSession';
 
 export function LoginPage() {
-  const router = useRouter();
-
+  const { signIn } = useSession();
   const search = useSearch({ strict: false }) as { redirect?: string };
 
   const handleLogin = async () => {
     try {
-      await signInWithGoogle();
-      await router.invalidate();
-
-      const targetPath = search.redirect || '/deals';
-      await router.navigate({ to: targetPath });
+      await signIn(search.redirect);
     } catch (error) {
       console.error('Sign-in error:', error);
     }

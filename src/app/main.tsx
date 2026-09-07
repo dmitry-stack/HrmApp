@@ -7,7 +7,7 @@ import type { User } from 'firebase/auth';
 import './styles/index.css';
 import { routeTree } from './routeTree.gen';
 import { auth } from '@/shared/api/firebase';
-import { AuthContext } from '@/shared/auth/useAuth';
+import { AuthContext } from '@/entities/session';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Toaster } from '@/shared/ui/sonner';
 

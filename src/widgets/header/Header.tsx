@@ -4,10 +4,9 @@ import promos from '@shared/assets/header/promos.svg';
 
 import { useState } from 'react';
 import { SearchInput } from '@/features/search-input/SearchInput';
-import { signOut } from 'firebase/auth';
-import { auth } from '@/shared/api/firebase';
-import { useRouter } from '@tanstack/react-router';
-import { useAuth } from '@/shared/auth/useAuth';
+
+import { useAuth } from '@/entities/session';
+import { useSession } from '@/entities/session/model/useSession';
 
 const purpleIconFilter =
   'brightness(0) saturate(100%) invert(44%) sepia(31%) saturate(973%) hue-rotate(200deg) brightness(95%) contrast(90%)';
@@ -15,14 +14,9 @@ const purpleIconFilter =
 export function Header() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [activeItem, setActiveItem] = useState<string | null>(null);
-  const router = useRouter();
-  const handleLogout = async () => {
-    await signOut(auth);
-    await router.invalidate();
-    await router.navigate({ to: '/login' });
-  };
 
   const { user } = useAuth();
+  const { signOut } = useSession();
 
   const renderButton = (icon: string, label: string) => {
     const isHovered = hoveredItem === label;
@@ -60,7 +54,7 @@ export function Header() {
 
       <div className="flex items-center justify-center gap-4 sm:gap-6">
         <button
-          onClick={handleLogout}
+          onClick={signOut}
           className="cursor-pointer text-[#E14B55] text-md font-semibold"
         >
           Log out
