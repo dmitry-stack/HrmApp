@@ -3,7 +3,7 @@ import { Layout } from '@/widgets/layout/Layout';
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: ({ context, location }) => {
-    if (!context?.auth || context.auth.isLoading) {
+    if (context.auth.isLoading) {
       return;
     }
 
@@ -16,6 +16,11 @@ export const Route = createFileRoute('/_authenticated')({
       });
     }
   },
+  pendingComponent: () => (
+    <div className="flex h-screen w-full items-center justify-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#707FDD] border-t-transparent" />
+    </div>
+  ),
 
   component: () => (
     <Layout>

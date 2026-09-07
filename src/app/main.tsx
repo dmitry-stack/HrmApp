@@ -10,6 +10,12 @@ import { auth } from '@/shared/api/firebase';
 import { AuthContext } from '@/shared/auth/useAuth';
 import { onAuthStateChanged } from 'firebase/auth';
 
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

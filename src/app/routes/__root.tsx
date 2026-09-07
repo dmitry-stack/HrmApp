@@ -1,7 +1,5 @@
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
-
 import type { User } from 'firebase/auth';
-import type { QueryClient } from '@tanstack/react-query';
 
 export interface AuthState {
   user: User | null;
@@ -10,7 +8,6 @@ export interface AuthState {
 
 export interface RouterContext {
   auth: AuthState;
-  queryClient?: QueryClient;
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
