@@ -4,7 +4,7 @@ type ActionButtonProps = {
     left?: string;
     right?: string;
   };
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'delete';
   onClick?: () => void;
   disabled?: boolean;
 };
@@ -22,6 +22,7 @@ export function ActionButton({
   const variants = {
     primary: 'bg-[#707FDD] text-white hover:bg-[#6476d6]',
     secondary: 'bg-[#F1F2F7] text-[#3E566F] hover:bg-[#e8ebf3]',
+    delete: 'bg-[#E14B55] text-white hover:bg-[#d13f4b]',
   };
 
   return (

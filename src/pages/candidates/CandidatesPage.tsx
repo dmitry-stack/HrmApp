@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 import type { ProjectId } from '@/entities/project/model/constants';
 import { DEFAULT_PROJECTS } from '@/entities/project/model/constants';
 import { useAddCandidatesToProject } from '@/entities/candidate/api/candidate.queries';
+import { DeleteCandidate } from '@/features/delete-candidate/DeleteCandidate';
 
 export function CandidatesPage() {
   const { data: candidates, isLoading, isError, error } = useCandidatesQuery();
@@ -97,6 +98,10 @@ export function CandidatesPage() {
         </div>
 
         <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
+          <DeleteCandidate
+            candidateIds={selectedCandidateIds}
+            onDeleted={() => setSelectedCandidateIds([])}
+          />
           <AddCandidateDialog />
           <AddToProject
             onSelectProject={handleAddToProject}

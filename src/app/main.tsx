@@ -9,6 +9,7 @@ import { routeTree } from './routeTree.gen';
 import { auth } from '@/shared/api/firebase';
 import { AuthContext } from '@/shared/auth/useAuth';
 import { onAuthStateChanged } from 'firebase/auth';
+import { Toaster } from '@/shared/ui/sonner';
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -49,17 +50,20 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading }}>
-      {isLoading ? (
-        <div className="flex h-screen w-full items-center justify-center bg-[#F8FAFC]">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#707FDD] border-t-transparent" />
-        </div>
-      ) : (
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} context={{ auth: { user, isLoading } }} />
-        </QueryClientProvider>
-      )}
-    </AuthContext.Provider>
+    <>
+      <AuthContext.Provider value={{ user, isLoading }}>
+        {isLoading ? (
+          <div className="flex h-screen w-full items-center justify-center bg-[#F8FAFC]">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#707FDD] border-t-transparent" />
+          </div>
+        ) : (
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} context={{ auth: { user, isLoading } }} />
+          </QueryClientProvider>
+        )}
+      </AuthContext.Provider>
+      <Toaster duration={2000} position="top-right" />
+    </>
   );
 }
 
