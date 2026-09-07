@@ -9,6 +9,7 @@ import {
   orderBy,
   limit,
   writeBatch,
+  deleteDoc,
 } from 'firebase/firestore';
 import { db } from '@/shared/api/firebase';
 import { candidateConverter } from './candidate.converter';
@@ -43,6 +44,20 @@ export const candidateService = {
       profileUpdated: Timestamp.now(),
     });
     return docRef.id;
+  },
+
+  async delete(id: string) {
+    await deleteDoc(doc(db, COLLECTION_NAME, id));
+  },
+
+  async deleteMany(ids: string[]) {
+    const batch = writeBatch(db);
+
+    ids.forEach((id) => {
+      batch.delete(doc(db, COLLECTION_NAME, id));
+    });
+
+    await batch.commit();
   },
 
   async addCandidatesToProject(candidateIds: string[], projectId: ProjectId) {

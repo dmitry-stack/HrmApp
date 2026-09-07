@@ -61,3 +61,24 @@ export function useAddCandidatesToProject() {
     },
   });
 }
+
+export function useDeleteCandiadte() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (candidateId: string) => candidateService.delete(candidateId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: candidateKeys.lists() });
+    },
+  });
+}
+
+export function useDeleteCandidates() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (candidateIds: string[]) => candidateService.deleteMany(candidateIds),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: candidateKeys.lists() });
+    },
+  });
+}
