@@ -10,6 +10,7 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
+      "@tanstack/router-core": ["node_modules/@tanstack/router-core/dist/cjs/index.d.cts"],
       "@/*": ["src/*"],
       "@app": ["src/app"],
       "@app/*": ["src/app/*"],
