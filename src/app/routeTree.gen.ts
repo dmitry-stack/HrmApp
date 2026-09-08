@@ -8,148 +8,148 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root';
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated';
-import { Route as LoginRouteImport } from './routes/login';
-import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index';
-import { Route as AuthenticatedBriefcaseRouteImport } from './routes/_authenticated/briefcase';
-import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar';
-import { Route as AuthenticatedCandidatesRouteImport } from './routes/_authenticated/candidates';
-import { Route as AuthenticatedDealsRouteImport } from './routes/_authenticated/deals';
-import { Route as AuthenticatedDiagramRouteImport } from './routes/_authenticated/diagram';
-import { Route as AuthenticatedEnvelopeRouteImport } from './routes/_authenticated/envelope';
-import { Route as AuthenticatedPigRouteImport } from './routes/_authenticated/pig';
-import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile';
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings';
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedBriefcaseRouteImport } from './routes/_authenticated/briefcase'
+import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
+import { Route as AuthenticatedCandidatesRouteImport } from './routes/_authenticated/candidates'
+import { Route as AuthenticatedChatRouteImport } from './routes/_authenticated/chat'
+import { Route as AuthenticatedDealsRouteImport } from './routes/_authenticated/deals'
+import { Route as AuthenticatedDiagramRouteImport } from './routes/_authenticated/diagram'
+import { Route as AuthenticatedPigRouteImport } from './routes/_authenticated/pig'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 const AuthenticatedBriefcaseRoute = AuthenticatedBriefcaseRouteImport.update({
   id: '/briefcase',
   path: '/briefcase',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 const AuthenticatedCandidatesRoute = AuthenticatedCandidatesRouteImport.update({
   id: '/candidates',
   path: '/candidates',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
+const AuthenticatedChatRoute = AuthenticatedChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedDealsRoute = AuthenticatedDealsRouteImport.update({
   id: '/deals',
   path: '/deals',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 const AuthenticatedDiagramRoute = AuthenticatedDiagramRouteImport.update({
   id: '/diagram',
   path: '/diagram',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
-const AuthenticatedEnvelopeRoute = AuthenticatedEnvelopeRouteImport.update({
-  id: '/envelope',
-  path: '/envelope',
-  getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 const AuthenticatedPigRoute = AuthenticatedPigRouteImport.update({
   id: '/pig',
   path: '/pig',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthenticatedIndexRoute;
-  '/login': typeof LoginRoute;
-  '/briefcase': typeof AuthenticatedBriefcaseRoute;
-  '/calendar': typeof AuthenticatedCalendarRoute;
-  '/candidates': typeof AuthenticatedCandidatesRoute;
-  '/deals': typeof AuthenticatedDealsRoute;
-  '/diagram': typeof AuthenticatedDiagramRoute;
-  '/envelope': typeof AuthenticatedEnvelopeRoute;
-  '/pig': typeof AuthenticatedPigRoute;
-  '/profile': typeof AuthenticatedProfileRoute;
-  '/settings': typeof AuthenticatedSettingsRoute;
+  '/': typeof AuthenticatedIndexRoute
+  '/login': typeof LoginRoute
+  '/briefcase': typeof AuthenticatedBriefcaseRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
+  '/candidates': typeof AuthenticatedCandidatesRoute
+  '/chat': typeof AuthenticatedChatRoute
+  '/deals': typeof AuthenticatedDealsRoute
+  '/diagram': typeof AuthenticatedDiagramRoute
+  '/pig': typeof AuthenticatedPigRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/settings': typeof AuthenticatedSettingsRoute
 }
 export interface FileRoutesByTo {
-  '/login': typeof LoginRoute;
-  '/briefcase': typeof AuthenticatedBriefcaseRoute;
-  '/calendar': typeof AuthenticatedCalendarRoute;
-  '/candidates': typeof AuthenticatedCandidatesRoute;
-  '/deals': typeof AuthenticatedDealsRoute;
-  '/diagram': typeof AuthenticatedDiagramRoute;
-  '/envelope': typeof AuthenticatedEnvelopeRoute;
-  '/pig': typeof AuthenticatedPigRoute;
-  '/profile': typeof AuthenticatedProfileRoute;
-  '/settings': typeof AuthenticatedSettingsRoute;
-  '/': typeof AuthenticatedIndexRoute;
+  '/login': typeof LoginRoute
+  '/briefcase': typeof AuthenticatedBriefcaseRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
+  '/candidates': typeof AuthenticatedCandidatesRoute
+  '/chat': typeof AuthenticatedChatRoute
+  '/deals': typeof AuthenticatedDealsRoute
+  '/diagram': typeof AuthenticatedDiagramRoute
+  '/pig': typeof AuthenticatedPigRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  '/_authenticated': typeof AuthenticatedRouteWithChildren;
-  '/login': typeof LoginRoute;
-  '/_authenticated/briefcase': typeof AuthenticatedBriefcaseRoute;
-  '/_authenticated/calendar': typeof AuthenticatedCalendarRoute;
-  '/_authenticated/candidates': typeof AuthenticatedCandidatesRoute;
-  '/_authenticated/deals': typeof AuthenticatedDealsRoute;
-  '/_authenticated/diagram': typeof AuthenticatedDiagramRoute;
-  '/_authenticated/envelope': typeof AuthenticatedEnvelopeRoute;
-  '/_authenticated/pig': typeof AuthenticatedPigRoute;
-  '/_authenticated/profile': typeof AuthenticatedProfileRoute;
-  '/_authenticated/settings': typeof AuthenticatedSettingsRoute;
-  '/_authenticated/': typeof AuthenticatedIndexRoute;
+  __root__: typeof rootRouteImport
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_authenticated/briefcase': typeof AuthenticatedBriefcaseRoute
+  '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
+  '/_authenticated/candidates': typeof AuthenticatedCandidatesRoute
+  '/_authenticated/chat': typeof AuthenticatedChatRoute
+  '/_authenticated/deals': typeof AuthenticatedDealsRoute
+  '/_authenticated/diagram': typeof AuthenticatedDiagramRoute
+  '/_authenticated/pig': typeof AuthenticatedPigRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/login'
     | '/briefcase'
     | '/calendar'
     | '/candidates'
+    | '/chat'
     | '/deals'
     | '/diagram'
-    | '/envelope'
     | '/pig'
     | '/profile'
-    | '/settings';
-  fileRoutesByTo: FileRoutesByTo;
+    | '/settings'
+  fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
     | '/briefcase'
     | '/calendar'
     | '/candidates'
+    | '/chat'
     | '/deals'
     | '/diagram'
-    | '/envelope'
     | '/pig'
     | '/profile'
     | '/settings'
-    | '/';
+    | '/'
   id:
     | '__root__'
     | '/_authenticated'
@@ -157,143 +157,143 @@ export interface FileRouteTypes {
     | '/_authenticated/briefcase'
     | '/_authenticated/calendar'
     | '/_authenticated/candidates'
+    | '/_authenticated/chat'
     | '/_authenticated/deals'
     | '/_authenticated/diagram'
-    | '/_authenticated/envelope'
     | '/_authenticated/pig'
     | '/_authenticated/profile'
     | '/_authenticated/settings'
-    | '/_authenticated/';
-  fileRoutesById: FileRoutesById;
+    | '/_authenticated/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
-  LoginRoute: typeof LoginRoute;
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_authenticated': {
-      id: '/_authenticated';
-      path: '';
-      fullPath: '/';
-      preLoaderRoute: typeof AuthenticatedRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
-      id: '/login';
-      path: '/login';
-      fullPath: '/login';
-      preLoaderRoute: typeof LoginRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/': {
-      id: '/_authenticated/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof AuthenticatedIndexRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/briefcase': {
-      id: '/_authenticated/briefcase';
-      path: '/briefcase';
-      fullPath: '/briefcase';
-      preLoaderRoute: typeof AuthenticatedBriefcaseRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/briefcase'
+      path: '/briefcase'
+      fullPath: '/briefcase'
+      preLoaderRoute: typeof AuthenticatedBriefcaseRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/calendar': {
-      id: '/_authenticated/calendar';
-      path: '/calendar';
-      fullPath: '/calendar';
-      preLoaderRoute: typeof AuthenticatedCalendarRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/candidates': {
-      id: '/_authenticated/candidates';
-      path: '/candidates';
-      fullPath: '/candidates';
-      preLoaderRoute: typeof AuthenticatedCandidatesRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/candidates'
+      path: '/candidates'
+      fullPath: '/candidates'
+      preLoaderRoute: typeof AuthenticatedCandidatesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/chat': {
+      id: '/_authenticated/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof AuthenticatedChatRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/deals': {
-      id: '/_authenticated/deals';
-      path: '/deals';
-      fullPath: '/deals';
-      preLoaderRoute: typeof AuthenticatedDealsRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/deals'
+      path: '/deals'
+      fullPath: '/deals'
+      preLoaderRoute: typeof AuthenticatedDealsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/diagram': {
-      id: '/_authenticated/diagram';
-      path: '/diagram';
-      fullPath: '/diagram';
-      preLoaderRoute: typeof AuthenticatedDiagramRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
-    '/_authenticated/envelope': {
-      id: '/_authenticated/envelope';
-      path: '/envelope';
-      fullPath: '/envelope';
-      preLoaderRoute: typeof AuthenticatedEnvelopeRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/diagram'
+      path: '/diagram'
+      fullPath: '/diagram'
+      preLoaderRoute: typeof AuthenticatedDiagramRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/pig': {
-      id: '/_authenticated/pig';
-      path: '/pig';
-      fullPath: '/pig';
-      preLoaderRoute: typeof AuthenticatedPigRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/pig'
+      path: '/pig'
+      fullPath: '/pig'
+      preLoaderRoute: typeof AuthenticatedPigRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/profile': {
-      id: '/_authenticated/profile';
-      path: '/profile';
-      fullPath: '/profile';
-      preLoaderRoute: typeof AuthenticatedProfileRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/settings': {
-      id: '/_authenticated/settings';
-      path: '/settings';
-      fullPath: '/settings';
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport;
-      parentRoute: typeof AuthenticatedRoute;
-    };
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedBriefcaseRoute: typeof AuthenticatedBriefcaseRoute;
-  AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute;
-  AuthenticatedCandidatesRoute: typeof AuthenticatedCandidatesRoute;
-  AuthenticatedDealsRoute: typeof AuthenticatedDealsRoute;
-  AuthenticatedDiagramRoute: typeof AuthenticatedDiagramRoute;
-  AuthenticatedEnvelopeRoute: typeof AuthenticatedEnvelopeRoute;
-  AuthenticatedPigRoute: typeof AuthenticatedPigRoute;
-  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute;
-  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute;
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
+  AuthenticatedBriefcaseRoute: typeof AuthenticatedBriefcaseRoute
+  AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
+  AuthenticatedCandidatesRoute: typeof AuthenticatedCandidatesRoute
+  AuthenticatedChatRoute: typeof AuthenticatedChatRoute
+  AuthenticatedDealsRoute: typeof AuthenticatedDealsRoute
+  AuthenticatedDiagramRoute: typeof AuthenticatedDiagramRoute
+  AuthenticatedPigRoute: typeof AuthenticatedPigRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedBriefcaseRoute: AuthenticatedBriefcaseRoute,
   AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedCandidatesRoute: AuthenticatedCandidatesRoute,
+  AuthenticatedChatRoute: AuthenticatedChatRoute,
   AuthenticatedDealsRoute: AuthenticatedDealsRoute,
   AuthenticatedDiagramRoute: AuthenticatedDiagramRoute,
-  AuthenticatedEnvelopeRoute: AuthenticatedEnvelopeRoute,
   AuthenticatedPigRoute: AuthenticatedPigRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-};
+}
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren
-);
+  AuthenticatedRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
