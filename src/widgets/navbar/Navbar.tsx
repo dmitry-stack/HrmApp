@@ -20,7 +20,7 @@ const topNavItems: NavItem[] = [
   { icon: candidates, label: 'Candidates', link: '/candidates' },
   { icon: profile, label: 'Profile', link: '/profile' },
   { icon: briefcase, label: 'Briefcase', link: '/briefcase' },
-  { icon: envelope, label: 'Envelope', link: '/envelope' },
+  { icon: envelope, label: 'Chat', link: '/chat' },
   { icon: pig, label: 'Pig', link: '/pig' },
   { icon: calendar, label: 'Calendar', link: '/calendar' },
 ];
