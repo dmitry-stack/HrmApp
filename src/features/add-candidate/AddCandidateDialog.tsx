@@ -20,7 +20,7 @@ import {
 } from '@/shared/ui/select';
 import { useCreateCandidateMutation } from '@/entities/candidate/api/candidate.queries';
 import type { CreateCandidateDto } from '@/entities/candidate/model/types';
-import { ActionButton } from '../action-button/ActionButton';
+import { ActionButton } from '../../shared/ui/action-button/ActionButton';
 import plus from '@/shared/assets/header/plus.svg';
 
 export function AddCandidateDialog() {
