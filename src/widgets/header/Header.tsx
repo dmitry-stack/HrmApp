@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { SearchInput } from '@/shared/ui/search-input/SearchInput';
 import { useAuth } from '@/entities/session';
 import { useSession } from '@/entities/session';
+import { MobileNavbar } from '@widgets/navbar/MobileNavbar';
 
 const purpleIconFilter =
   'brightness(0) saturate(100%) invert(44%) sepia(31%) saturate(973%) hue-rotate(200deg) brightness(95%) contrast(90%)';
@@ -47,6 +48,9 @@ export function Header() {
         maxWidth="414px"
         onChange={() => {}}
       />
+      <div className="md:hidden">
+        <MobileNavbar />
+      </div>
 
       <h2 className="text-center text-[16px] font-normal text-[#343E48] ">CRM Recruit</h2>
 
