@@ -1,11 +1,12 @@
 import { Navbar } from '@widgets/navbar/Navbar';
+
 import { Header } from '@widgets/header/Header';
 import React from 'react';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen bg-white">
-      <aside className="shrink-0">
+      <aside className="shrink-0 hidden md:flex">
         <Navbar />
       </aside>
 
