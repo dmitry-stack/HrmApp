@@ -43,7 +43,12 @@ export function DealCard({
       <div className="flex h-full min-h-100 w-90 flex-col overflow-hidden rounded-xl bg-[#F1F2F7] p-3">
         <div className="flex items-center justify-between px-2 py-2">
           <div className="flex items-center gap-2">
-            <input type="checkbox" className="h-5 w-5" disabled />
+            <input
+              type="checkbox"
+              className="h-5 w-5"
+              disabled
+              aria-label="Select deal"
+            />
             <h2 className="text-[16px] font-semibold text-[#343434]">{projectName}</h2>
           </div>
           <div className="rounded-full bg-[#DFE0E8] px-2.5 py-1">
