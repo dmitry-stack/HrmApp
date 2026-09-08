@@ -1,15 +1,10 @@
 import tables from '@shared/assets/candidates/tables.svg';
-
-import { SearchInput } from '@features/search-input/SearchInput';
-import { CandidatesTable } from '@features/candidates-table/CandidatesTable';
+import { SearchInput } from '@/shared/ui/search-input/SearchInput';
+import { CandidatesTable } from '@/widgets/candidates-table/CandidatesTable';
 import { useCandidatesQuery } from '@/entities/candidate/api/candidate.queries';
 import { Loader2 } from 'lucide-react';
-//import { Database } from 'lucide-react';
 import { useState } from 'react';
-// import { useQueryClient } from '@tanstack/react-query';
-// import { seedCandidatesDatabase } from '@entities/canditate/api/candidate.seed';
-// import { candidateKeys } from '@entities/canditate/api/candidate.queries';
-import { ActionBar } from '@/features/table-action-bar/ActionBar';
+import { ActionBar } from '@/widgets/candidates-table/ActionBar';
 import { AddCandidateDialog } from '@/features/add-candidate/AddCandidateDialog';
 import { AddToProject } from '@/features/add-to-project/AddToProject';
 import { toast } from 'sonner';

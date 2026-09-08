@@ -1,4 +1,4 @@
-import { ActionButton } from '../action-button/ActionButton';
+import { ActionButton } from '../../shared/ui/action-button/ActionButton';
 import { useDeleteCandidates } from '@/entities/candidate/api/candidate.queries';
 import { toast } from 'sonner';
 

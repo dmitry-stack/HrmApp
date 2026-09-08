@@ -3,7 +3,7 @@ import mail from '@shared/assets/header/mail.svg';
 import promos from '@shared/assets/header/promos.svg';
 
 import { useState } from 'react';
-import { SearchInput } from '@/features/search-input/SearchInput';
+import { SearchInput } from '@/shared/ui/search-input/SearchInput';
 
 import { useAuth } from '@/entities/session';
 import { useSession } from '@/entities/session/model/useSession';
