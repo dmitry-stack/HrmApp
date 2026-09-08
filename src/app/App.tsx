@@ -48,13 +48,7 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={{ user, isLoading }}>
-        {isLoading ? (
-          <div className="flex h-screen w-full items-center justify-center bg-[#F8FAFC]">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#707FDD] border-t-transparent" />
-          </div>
-        ) : (
-          <RouterProvider router={router} context={{ auth: { user, isLoading } }} />
-        )}
+        <RouterProvider router={router} context={{ auth: { user, isLoading } }} />
       </AuthContext.Provider>
       <Toaster duration={2000} position="top-right" />
     </QueryClientProvider>

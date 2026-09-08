@@ -6,13 +6,11 @@ export function useSession() {
 
   const signIn = async (redirectTo = '/deals') => {
     await sessionService.signInWithGoogle();
-    await router.invalidate();
     await router.navigate({ to: redirectTo });
   };
 
   const signOut = async () => {
     await sessionService.signOut();
-    await router.invalidate();
     await router.navigate({ to: '/login' });
   };
 

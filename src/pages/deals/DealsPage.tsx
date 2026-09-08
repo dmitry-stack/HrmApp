@@ -5,8 +5,6 @@ import { DealCard } from '@/entities/deal/ui/deal-card/DealCard';
 import { useMemo } from 'react';
 import { DealsSummary } from '@/entities/deal/ui/deals-summary/DealsSummary';
 
-// type Pipleline = 'totalWeightedPipeline' | 'totalPipeline';
-
 export function DealsPage() {
   const { data: candidates = [] } = useCandidatesQuery();
 

@@ -2,7 +2,7 @@ import { useSearch } from '@tanstack/react-router';
 import google from '@shared/assets/google.svg';
 import apple from '@shared/assets/apple.svg';
 import twitter from '@shared/assets/twitter.svg';
-import { useSession } from '@/entities/session/model/useSession';
+import { useSession } from '@/entities/session';
 
 export function LoginPage() {
   const { signIn } = useSession();

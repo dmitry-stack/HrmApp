@@ -1,12 +1,10 @@
 import notification from '@shared/assets/header/notification.svg';
 import mail from '@shared/assets/header/mail.svg';
 import promos from '@shared/assets/header/promos.svg';
-
 import { useState } from 'react';
 import { SearchInput } from '@/shared/ui/search-input/SearchInput';
-
 import { useAuth } from '@/entities/session';
-import { useSession } from '@/entities/session/model/useSession';
+import { useSession } from '@/entities/session';
 
 const purpleIconFilter =
   'brightness(0) saturate(100%) invert(44%) sepia(31%) saturate(973%) hue-rotate(200deg) brightness(95%) contrast(90%)';
