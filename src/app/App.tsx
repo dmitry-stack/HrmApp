@@ -36,14 +36,27 @@ export function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (nextUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
       setUser(nextUser);
       setIsLoading(false);
-      await router.invalidate();
     });
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      void router.invalidate();
+    }
+  }, [user, isLoading]);
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#707FDD] border-t-transparent" />
+      </div>
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
