@@ -8,6 +8,37 @@ import { useAuth } from '@/entities/session';
 import { X, Users } from 'lucide-react';
 import { toast } from 'sonner';
 
+export const formatMessageTime = (timestamp: unknown): string => {
+  if (!timestamp) return '';
+  let date: Date;
+  if (
+    typeof timestamp === 'object' &&
+    'toDate' in timestamp &&
+    typeof (timestamp as { toDate: () => unknown }).toDate === 'function'
+  ) {
+    const firestoreDate = (timestamp as { toDate: () => unknown }).toDate();
+    if (firestoreDate instanceof Date) {
+      date = firestoreDate;
+    } else {
+      return '';
+    }
+  } else if (timestamp instanceof Date) {
+    date = timestamp;
+  } else if (typeof timestamp === 'number' || typeof timestamp === 'string') {
+    date = new Date(timestamp);
+  } else {
+    return '';
+  }
+  if (Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  return date.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
 export function ChatPage() {
   const { messages, isLoading, error, retry } = useLiveChatMessages();
   const { user } = useAuth();
@@ -114,6 +145,9 @@ export function ChatPage() {
                 >
                   {msg.content}
                 </div>
+                <span className="mt-1 text-[10px] text-slate-400">
+                  {formatMessageTime(msg.createdAt)}
+                </span>
               </div>
             );
           })

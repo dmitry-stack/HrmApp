@@ -46,6 +46,7 @@ export function SendChatMessage() {
       <button
         type="submit"
         disabled={!text.trim() || isSending}
+        aria-label="Send message"
         className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#707FDD] text-white transition hover:bg-[#5e6ec8] disabled:opacity-50"
       >
         <Send className="h-4 w-4" />
