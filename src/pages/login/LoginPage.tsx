@@ -3,16 +3,23 @@ import google from '@shared/assets/google.svg';
 import apple from '@shared/assets/apple.svg';
 import twitter from '@shared/assets/twitter.svg';
 import { useSession } from '@/entities/session';
+import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export function LoginPage() {
   const { signIn } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
   const search = useSearch({ strict: false }) as { redirect?: string };
 
   const handleLogin = async () => {
+    if (isLoading) return;
     try {
+      setIsLoading(true);
       await signIn(search.redirect);
     } catch (error) {
       console.error('Sign-in error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,9 +57,14 @@ export function LoginPage() {
           <button
             type="button"
             onClick={handleLogin}
+            disabled={isLoading}
             className="flex h-14 items-center justify-center rounded-xl border border-slate-200/90 bg-white transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm active:scale-[0.98]"
           >
-            <img className="h-6 w-6" src={google} alt="Google icon"></img>
+            {isLoading ? (
+              <Loader2 className="h-6 w-6 animate-spin text-[#707FDD]" />
+            ) : (
+              <img className="h-6 w-6" src={google} alt="Google sign-in" />
+            )}
           </button>
 
           <button
