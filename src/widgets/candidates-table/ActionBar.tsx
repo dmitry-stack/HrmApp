@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button } from '@/shared/ui/button';
 import {
   Select,
@@ -26,17 +25,15 @@ export function ActionBar({
   onRecordsPerPageChange,
   selectedCount = 0,
 }: ActionBarProps) {
-  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-
-  const totalPages: number = Math.max(1, Math.ceil(totalRecords / recordsPerPage));
+  const totalPages = Math.max(1, Math.ceil(totalRecords / recordsPerPage));
   const fromRecord = totalRecords === 0 ? 0 : (currentPage - 1) * recordsPerPage + 1;
   const toRecord = Math.min(currentPage * recordsPerPage, totalRecords);
 
   const canGoPrevious = currentPage > 1;
   const canGoNext = currentPage < totalPages;
 
-  const maxVisiblePages = 12;
-
+  // Ограничиваем количество видимых кнопок для десктопа
+  const maxVisiblePages = 7;
   const firstVisiblePage = Math.max(
     1,
     Math.min(
@@ -44,33 +41,37 @@ export function ActionBar({
       totalPages - maxVisiblePages + 1
     )
   );
-
   const lastVisiblePage = Math.min(totalPages, firstVisiblePage + maxVisiblePages - 1);
+
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-3 border-t bg-card text-xs text-muted-foreground">
-      <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-3 border-t border-slate-200/80 bg-white px-4 py-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+      {/* Левая часть: Выбранные строки + Счётчик записей */}
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
         {selectedCount > 0 && (
-          <span className="font-medium text-foreground bg-muted px-2 py-0.5 rounded">
+          <span className="rounded-md bg-slate-100 px-2 py-0.5 font-medium text-slate-900">
             {selectedCount} selected
           </span>
         )}
-        <p>
-          Showing records{' '}
-          <span className="font-medium text-foreground">{fromRecord}</span> to
-          <span className="font-medium text-foreground"> {toRecord}</span> of
-          <span className="font-medium text-foreground"> {totalRecords}</span> records
+        <p className="text-center sm:text-left">
+          Showing <span className="font-medium text-slate-900">{fromRecord}</span>–
+          <span className="font-medium text-slate-900">{toRecord}</span> of{' '}
+          <span className="font-medium text-slate-900">{totalRecords}</span>
         </p>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
         {onRecordsPerPageChange && (
-          <div className="flex items-center gap-2">
-            <span>Rows per page:</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-slate-400 whitespace-nowrap">
+              <span className="sm:hidden">Rows:</span>
+              <span className="hidden sm:inline">Rows per page:</span>
+            </span>
             <Select
               value={String(recordsPerPage)}
               onValueChange={(val) => onRecordsPerPageChange(Number(val))}
+              aria-label="Select records per page"
             >
-              <SelectTrigger className="h-8 w-17 text-xs">
+              <SelectTrigger className="h-8 w-16 px-2 text-xs">
                 <SelectValue placeholder={recordsPerPage} />
               </SelectTrigger>
               <SelectContent side="top">
@@ -84,13 +85,14 @@ export function ActionBar({
           </div>
         )}
 
-        <div className="flex items-center gap-1.5">
-          <div className="flex items-center gap-1.5 mr-1">
+        <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 sm:mr-1">
             <Select
               value={String(currentPage)}
               onValueChange={(val) => onPageChange?.(Number(val))}
+              aria-label="Select current page"
             >
-              <SelectTrigger className="h-8 w-16 text-xs font-medium">
+              <SelectTrigger className="h-8 w-15 px-2 text-xs font-medium">
                 <SelectValue placeholder={currentPage} />
               </SelectTrigger>
               <SelectContent side="top" className="max-h-48 min-w-16">
@@ -106,7 +108,7 @@ export function ActionBar({
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 border-0 bg-transparent shadow-none hover:bg-[#707FDD1A]"
+            className="h-8 w-8 text-slate-600 hover:bg-[#707FDD]/10 hover:text-[#707FDD] disabled:opacity-30"
             onClick={() => onPageChange?.(currentPage - 1)}
             disabled={!canGoPrevious}
             title="Previous page"
@@ -114,28 +116,23 @@ export function ActionBar({
             <ChevronLeft className="h-4 w-4" />
           </Button>
 
-          <div className="px-1 text-foreground font-medium flex items-center gap-1">
+          <div className="hidden items-center gap-1 md:flex">
             {Array.from(
               { length: lastVisiblePage - firstVisiblePage + 1 },
               (_, index) => {
                 const pageNumber = firstVisiblePage + index;
-                const isPageHovered = hoveredItem === pageNumber;
                 const isPageActive = currentPage === pageNumber;
 
                 return (
                   <button
                     key={pageNumber}
                     type="button"
-                    aria-label={`Go to page ${pageNumber}`}
-                    onMouseEnter={() => setHoveredItem(pageNumber)}
-                    onMouseLeave={() => setHoveredItem(null)}
                     onClick={() => onPageChange?.(pageNumber)}
-                    className="flex h-8 w-8 items-center justify-center rounded-md text-xs transition-all"
-                    style={{
-                      backgroundColor:
-                        isPageActive || isPageHovered ? '#707FDD1A' : 'transparent',
-                      color: isPageActive ? '#707FDD' : '#222423E5',
-                    }}
+                    className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs font-medium transition-colors ${
+                      isPageActive
+                        ? 'bg-[#707FDD]/10 text-[#707FDD]'
+                        : 'text-slate-700 hover:bg-slate-100'
+                    }`}
                   >
                     {pageNumber}
                   </button>
@@ -147,7 +144,7 @@ export function ActionBar({
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 border-0 bg-transparent shadow-none hover:bg-[#707FDD1A]"
+            className="h-8 w-8 text-slate-600 hover:bg-[#707FDD]/10 hover:text-[#707FDD] disabled:opacity-30"
             onClick={() => onPageChange?.(currentPage + 1)}
             disabled={!canGoNext}
             title="Next page"
