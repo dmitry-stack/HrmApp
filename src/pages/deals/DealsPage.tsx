@@ -1,39 +1,15 @@
-import type { Candidate } from '@/entities/candidate/model/types';
 import { DEFAULT_PROJECTS } from '@/entities/project/model/constants';
 import { useCandidatesQuery } from '@/entities/candidate/api/candidate.queries';
 import { DealCard } from '@/entities/deal/ui/deal-card/DealCard';
 import { useMemo } from 'react';
 import { DealsSummary } from '@/entities/deal/ui/deals-summary/DealsSummary';
+import { calculatePipeline } from './calculate-pipeline';
 
 export function DealsPage() {
   const { data: candidates = [] } = useCandidatesQuery();
 
   const { candidatesByProject, totalWeightedPipeline, totalPipeline } = useMemo(() => {
-    const map = new Map<string, Candidate[]>();
-    DEFAULT_PROJECTS.forEach((p) => map.set(p.id, []));
-
-    candidates.forEach((c) => {
-      if (c.projectId && map.has(c.projectId)) {
-        map.get(c.projectId)!.push(c);
-      }
-    });
-
-    let weightedSum = 0;
-    let totalSum = 0;
-
-    DEFAULT_PROJECTS.forEach((proj) => {
-      const projectCandidates = map.get(proj.id);
-      if (projectCandidates && projectCandidates.length > 0) {
-        weightedSum += proj.weightedAmount;
-        totalSum += proj.totalAmount;
-      }
-    });
-
-    return {
-      candidatesByProject: map,
-      totalWeightedPipeline: weightedSum,
-      totalPipeline: totalSum,
-    };
+    return calculatePipeline(candidates, DEFAULT_PROJECTS);
   }, [candidates]);
 
   return (

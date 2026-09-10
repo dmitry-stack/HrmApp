@@ -3,7 +3,7 @@ import { SearchInput } from '@/shared/ui/search-input/SearchInput';
 import { CandidatesTable } from '@/widgets/candidates-table/CandidatesTable';
 import { useCandidatesQuery } from '@/entities/candidate/api/candidate.queries';
 import { Loader2 } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ActionBar } from '@/widgets/candidates-table/ActionBar';
 import { AddCandidateDialog } from '@/features/add-candidate/AddCandidateDialog';
 import { AddToProject } from '@/features/add-to-project/AddToProject';
@@ -12,6 +12,7 @@ import type { ProjectId } from '@/entities/project/model/constants';
 import { DEFAULT_PROJECTS } from '@/entities/project/model/constants';
 import { useAddCandidatesToProject } from '@/entities/candidate/api/candidate.queries';
 import { DeleteCandidate } from '@/features/delete-candidate/DeleteCandidate';
+import { filterCandidates } from '@/entities/candidate/model/filter-candidates';
 
 export function CandidatesPage() {
   const { data: candidates, isLoading, isError, error } = useCandidatesQuery();
@@ -63,22 +64,15 @@ export function CandidatesPage() {
     setCurrentPage(1);
   };
 
-  const filteredCandidates = (candidates ?? []).filter((candidate) => {
-    const searchLower = searchValue.toLowerCase();
-    return (
-      candidate.name.toLowerCase().includes(searchLower) ||
-      candidate.title.toLowerCase().includes(searchLower) ||
-      candidate.city.toLowerCase().includes(searchLower) ||
-      candidate.owner.toLowerCase().includes(searchLower) ||
-      candidate.source.toLowerCase().includes(searchLower) ||
-      candidate.id.toLowerCase().includes(searchLower)
-    );
-  });
+  const filteredCandidates = useMemo(
+    () => filterCandidates(candidates, searchValue),
+    [candidates, searchValue]
+  );
 
   const startIndex = (currentPage - 1) * recordsPerPage;
-  const paginatedCandidates = filteredCandidates.slice(
-    startIndex,
-    startIndex + recordsPerPage
+  const paginatedCandidates = useMemo(
+    () => filteredCandidates.slice(startIndex, startIndex + recordsPerPage),
+    [filteredCandidates, currentPage, recordsPerPage]
   );
 
   return (
