@@ -61,13 +61,6 @@ export function Header() {
         >
           Log out
         </button>
-        {/* <button
-          type="button"
-          aria-label="Add new item"
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-[#707FDD] shadow-sm"
-        >
-          <img src={plus} alt="Add" className="h-4 w-4" />
-        </button> */}
 
         {user?.photoURL ? (
           <img
