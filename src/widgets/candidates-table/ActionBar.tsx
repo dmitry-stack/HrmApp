@@ -32,7 +32,6 @@ export function ActionBar({
   const canGoPrevious = currentPage > 1;
   const canGoNext = currentPage < totalPages;
 
-  // Ограничиваем количество видимых кнопок для десктопа
   const maxVisiblePages = 7;
   const firstVisiblePage = Math.max(
     1,
@@ -45,7 +44,6 @@ export function ActionBar({
 
   return (
     <div className="flex flex-col gap-3 border-t border-slate-200/80 bg-white px-4 py-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-      {/* Левая часть: Выбранные строки + Счётчик записей */}
       <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
         {selectedCount > 0 && (
           <span className="rounded-md bg-slate-100 px-2 py-0.5 font-medium text-slate-900">
@@ -53,7 +51,7 @@ export function ActionBar({
           </span>
         )}
         <p className="text-center sm:text-left">
-          Showing <span className="font-medium text-slate-900">{fromRecord}</span>–
+          Showing <span className="font-medium text-slate-900">{fromRecord}</span>-
           <span className="font-medium text-slate-900">{toRecord}</span> of{' '}
           <span className="font-medium text-slate-900">{totalRecords}</span>
         </p>

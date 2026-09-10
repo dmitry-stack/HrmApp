@@ -6,6 +6,7 @@ import {
   getRedirectResult,
   type UserCredential,
 } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 import { auth } from '@/shared/api/firebase';
 
 const googleProvider = new GoogleAuthProvider();
@@ -15,15 +16,22 @@ export const sessionService = {
     try {
       return await signInWithPopup(auth, googleProvider);
     } catch (error: unknown) {
-      if (error instanceof Error && error.message.includes('popup closed by user')) {
+      const isPopupBlocked =
+        (error instanceof FirebaseError && error.code === 'auth/popup-blocked') ||
+        (typeof error === 'object' &&
+          error !== null &&
+          'code' in error &&
+          (error as { code: string }).code === 'auth/popup-blocked');
+
+      if (isPopupBlocked) {
+        console.warn('Popup blocked by browser. Redirecting via signInWithRedirect...');
         await signInWithRedirect(auth, googleProvider);
         return null;
-      } else {
-        throw error;
       }
+
+      throw error;
     }
   },
-
   async checkRedirectResult(): Promise<UserCredential | null> {
     try {
       return await getRedirectResult(auth);
