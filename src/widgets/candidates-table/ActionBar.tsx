@@ -58,7 +58,7 @@ export function ActionBar({
             </span>
             <Select
               value={String(recordsPerPage)}
-              onValueChange={(val) => onRecordsPerPageChange(Number(val))}
+              onValueChange={(val: string | null) => onRecordsPerPageChange(Number(val))}
               aria-label="Select records per page"
             >
               <SelectTrigger className="h-8 w-16 px-2 text-xs">
@@ -79,7 +79,7 @@ export function ActionBar({
           <div className="flex items-center gap-1 sm:mr-1">
             <Select
               value={String(currentPage)}
-              onValueChange={(val) => onPageChange?.(Number(val))}
+              onValueChange={(val: string | null) => onPageChange?.(Number(val))}
               aria-label="Select current page"
             >
               <SelectTrigger className="h-8 w-15 px-2 text-xs font-medium">

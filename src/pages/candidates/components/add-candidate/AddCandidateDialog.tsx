@@ -155,10 +155,14 @@ export function AddCandidateDialog() {
               <Label>Currency</Label>
               <Select
                 defaultValue="USD"
-                onValueChange={(v) =>
-                  setValue('salaryCurrency', v as CreateCandidateDto['salaryCurrency'], {
-                    shouldDirty: true,
-                  })
+                onValueChange={(v: string | null) =>
+                  setValue(
+                    'salaryCurrency',
+                    (v ?? 'USD') as CreateCandidateDto['salaryCurrency'],
+                    {
+                      shouldDirty: true,
+                    }
+                  )
                 }
               >
                 <SelectTrigger>
@@ -177,8 +181,8 @@ export function AddCandidateDialog() {
             <Label className="mb-2">Source</Label>
             <Select
               defaultValue="Other"
-              onValueChange={(v) =>
-                setValue('source', v as CreateCandidateDto['source'], {
+              onValueChange={(v: string | null) =>
+                setValue('source', (v ?? 'Other') as CreateCandidateDto['source'], {
                   shouldDirty: true,
                 })
               }
