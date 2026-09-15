@@ -1,31 +1,15 @@
-import { useEffect, useRef } from 'react';
-import {
-  useDeleteChatMessage,
-  useLiveChatMessages,
-} from '@/entities/chat/api/chat.queries';
-import { SendChatMessage } from '@/features/send-chat-message/SendChatMessage';
-import { useAuth } from '@/entities/session';
+import { useDeleteChatMessage, useLiveChatMessages, useAuth } from '@/shared/core';
+import { SendChatMessage } from './components/send-chat-message/SendChatMessage';
 import { X, Users } from 'lucide-react';
 import { toast } from 'sonner';
+import { useAutoScroll } from '@/shared/lib/hooks';
 import { formatMessageTime } from '@/entities/chat/model/format-message-time';
 
 export function ChatPage() {
   const { messages, isLoading, error, retry } = useLiveChatMessages();
   const { user } = useAuth();
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const isFirstLoad = useRef(true);
+  const { scrollRef } = useAutoScroll<HTMLDivElement>({ dependency: messages });
   const { mutate: deleteMessage } = useDeleteChatMessage();
-
-  useEffect(() => {
-    if (messages.length === 0) return;
-
-    if (isFirstLoad.current) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
-      isFirstLoad.current = false;
-    } else {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages]);
 
   return (
     <div className="mx-auto flex h-[calc(100vh-6rem)] w-full max-w-4xl flex-col rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
@@ -122,7 +106,7 @@ export function ChatPage() {
             );
           })
         )}
-        <div ref={messagesEndRef} />
+        <div ref={scrollRef} />
       </div>
 
       <div className="border-t border-slate-100 bg-white p-3">

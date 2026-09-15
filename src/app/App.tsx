@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import type { User } from 'firebase/auth';
 import './styles/index.css';
 import { routeTree } from './routeTree.gen';
-import { auth } from '@/shared/api/firebase';
-import { AuthContext } from '@/entities/session';
-import { onAuthStateChanged } from 'firebase/auth';
-import { Toaster } from '@/shared/ui/sonner';
+import { AuthContext, useAuthState } from '@/shared/core';
+import { Toaster } from '@/shared/ui/Sonner';
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -32,17 +29,7 @@ const router = createRouter({
 });
 
 export function App() {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
-      setUser(nextUser);
-      setIsLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const { user, isLoading } = useAuthState();
 
   useEffect(() => {
     if (!isLoading) {

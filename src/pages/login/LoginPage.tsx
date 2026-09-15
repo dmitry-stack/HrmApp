@@ -1,8 +1,8 @@
 import { useSearch } from '@tanstack/react-router';
-import google from '@shared/assets/google.svg';
-import apple from '@shared/assets/apple.svg';
-import twitter from '@shared/assets/twitter.svg';
-import { useSession } from '@/entities/session';
+import google from '@/shared/assets/google.svg';
+import apple from '@/shared/assets/apple.svg';
+import twitter from '@/shared/assets/twitter.svg';
+import { useSession } from '@/shared/core';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
@@ -51,7 +51,7 @@ export function LoginPage() {
             type="button"
             className="flex h-14 items-center justify-center rounded-xl border border-slate-200/90 bg-white transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm active:scale-[0.98]"
           >
-            <img className="h-6 w-6" src={apple} alt="Apple icon"></img>
+            <img className="h-6 w-6" src={apple} alt="Apple icon" />
           </button>
 
           <button
@@ -71,7 +71,7 @@ export function LoginPage() {
             type="button"
             className="flex h-14 items-center justify-center rounded-xl border border-slate-200/90 bg-white transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm active:scale-[0.98]"
           >
-            <img className="h-6 w-6" src={twitter} alt="Twitter icon"></img>
+            <img className="h-6 w-6" src={twitter} alt="Twitter icon" />
           </button>
         </div>
       </div>

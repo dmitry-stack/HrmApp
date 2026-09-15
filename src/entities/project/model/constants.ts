@@ -58,3 +58,4 @@ export const DEFAULT_PROJECTS = [
 ] as const;
 
 export type ProjectId = (typeof DEFAULT_PROJECTS)[number]['id'];
+export type Project = (typeof DEFAULT_PROJECTS)[number];

@@ -1,12 +1,13 @@
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui/Button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/shared/ui/select';
+} from '@/shared/ui/Select';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { usePaginationWindow } from '@/shared/lib/hooks';
 
 interface ActionBarProps {
   totalRecords: number;
@@ -25,22 +26,13 @@ export function ActionBar({
   onRecordsPerPageChange,
   selectedCount = 0,
 }: ActionBarProps) {
-  const totalPages = Math.max(1, Math.ceil(totalRecords / recordsPerPage));
-  const fromRecord = totalRecords === 0 ? 0 : (currentPage - 1) * recordsPerPage + 1;
-  const toRecord = Math.min(currentPage * recordsPerPage, totalRecords);
-
-  const canGoPrevious = currentPage > 1;
-  const canGoNext = currentPage < totalPages;
-
-  const maxVisiblePages = 7;
-  const firstVisiblePage = Math.max(
-    1,
-    Math.min(
-      currentPage - Math.floor(maxVisiblePages / 2),
-      totalPages - maxVisiblePages + 1
-    )
-  );
-  const lastVisiblePage = Math.min(totalPages, firstVisiblePage + maxVisiblePages - 1);
+  const { totalPages, fromRecord, toRecord, visiblePages, canGoPrevious, canGoNext } =
+    usePaginationWindow({
+      totalRecords,
+      currentPage,
+      recordsPerPage,
+      maxVisiblePages: 7,
+    });
 
   return (
     <div className="flex flex-col gap-3 border-t border-slate-200/80 bg-white px-4 py-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
@@ -51,7 +43,7 @@ export function ActionBar({
           </span>
         )}
         <p className="text-center sm:text-left">
-          Showing <span className="font-medium text-slate-900">{fromRecord}</span>-
+          Showing <span className="font-medium text-slate-900">{fromRecord}</span>–
           <span className="font-medium text-slate-900">{toRecord}</span> of{' '}
           <span className="font-medium text-slate-900">{totalRecords}</span>
         </p>
@@ -66,7 +58,7 @@ export function ActionBar({
             </span>
             <Select
               value={String(recordsPerPage)}
-              onValueChange={(val) => onRecordsPerPageChange(Number(val))}
+              onValueChange={(val: string | null) => onRecordsPerPageChange(Number(val))}
               aria-label="Select records per page"
             >
               <SelectTrigger className="h-8 w-16 px-2 text-xs">
@@ -87,7 +79,7 @@ export function ActionBar({
           <div className="flex items-center gap-1 sm:mr-1">
             <Select
               value={String(currentPage)}
-              onValueChange={(val) => onPageChange?.(Number(val))}
+              onValueChange={(val: string | null) => onPageChange?.(Number(val))}
               aria-label="Select current page"
             >
               <SelectTrigger className="h-8 w-15 px-2 text-xs font-medium">
@@ -115,28 +107,24 @@ export function ActionBar({
           </Button>
 
           <div className="hidden items-center gap-1 md:flex">
-            {Array.from(
-              { length: lastVisiblePage - firstVisiblePage + 1 },
-              (_, index) => {
-                const pageNumber = firstVisiblePage + index;
-                const isPageActive = currentPage === pageNumber;
+            {visiblePages.map((pageNumber) => {
+              const isPageActive = currentPage === pageNumber;
 
-                return (
-                  <button
-                    key={pageNumber}
-                    type="button"
-                    onClick={() => onPageChange?.(pageNumber)}
-                    className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs font-medium transition-colors ${
-                      isPageActive
-                        ? 'bg-[#707FDD]/10 text-[#707FDD]'
-                        : 'text-slate-700 hover:bg-slate-100'
-                    }`}
-                  >
-                    {pageNumber}
-                  </button>
-                );
-              }
-            )}
+              return (
+                <button
+                  key={pageNumber}
+                  type="button"
+                  onClick={() => onPageChange?.(pageNumber)}
+                  className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs font-medium transition-colors ${
+                    isPageActive
+                      ? 'bg-[#707FDD]/10 text-[#707FDD]'
+                      : 'text-slate-700 hover:bg-slate-100'
+                  }`}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
           </div>
 
           <Button

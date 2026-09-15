@@ -1,4 +1,4 @@
-import type { Candidate } from '@/entities/candidate/model/types';
+import type { Candidate } from '@/entities/candidate';
 import resume from '@/shared/assets/candidates/resume.svg';
 
 interface CandidatesTableProps {
@@ -14,7 +14,7 @@ export function CandidatesTable({
 }: CandidatesTableProps) {
   return (
     <div>
-      <table className="w-full border-collapse border  border-[#F4F4F4]">
+      <table className="w-full border-collapse border border-[#F4F4F4]">
         <thead className="bg-[#F1F2F7] text-left text-sm text-black border-b border-[#F4F4F4]">
           <tr>
             <th className="p-3">

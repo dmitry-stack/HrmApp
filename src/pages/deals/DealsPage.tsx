@@ -1,16 +1,10 @@
-import { DEFAULT_PROJECTS } from '@/entities/project/model/constants';
-import { useCandidatesQuery } from '@/entities/candidate/api/candidate.queries';
-import { DealCard } from '@/entities/deal/ui/deal-card/DealCard';
-import { useMemo } from 'react';
-import { DealsSummary } from '@/entities/deal/ui/deals-summary/DealsSummary';
-import { calculatePipeline } from './calculate-pipeline';
+import { DealCard } from '@/widgets/deals-board/deal-card/DealCard';
+import { DealsSummary } from '@/widgets/deals-board/deals-summary/DealsSummary';
+import { useDealsPipeline } from './model/useDealsPipeline';
 
 export function DealsPage() {
-  const { data: candidates = [] } = useCandidatesQuery();
-
-  const { candidatesByProject, totalWeightedPipeline, totalPipeline } = useMemo(() => {
-    return calculatePipeline(candidates, DEFAULT_PROJECTS);
-  }, [candidates]);
+  const { candidatesByProject, totalWeightedPipeline, totalPipeline, projects } =
+    useDealsPipeline();
 
   return (
     <div>
@@ -21,7 +15,7 @@ export function DealsPage() {
         dealsLost={15}
       />
       <div className="flex min-w-0 gap-4 overflow-x-auto scale-y-[-1] pb-2 pr-1">
-        {DEFAULT_PROJECTS.map((project) => {
+        {projects.map((project) => {
           const candidates = candidatesByProject.get(project.id) ?? [];
 
           if (candidates.length === 0) {

@@ -1,16 +1,18 @@
-import notification from '@shared/assets/header/notification.svg';
-import mail from '@shared/assets/header/mail.svg';
-import promos from '@shared/assets/header/promos.svg';
-import { useState } from 'react';
+import notification from '@/shared/assets/header/notification.svg';
+import mail from '@/shared/assets/header/mail.svg';
+import promos from '@/shared/assets/header/promos.svg';
+import { useState, type ReactNode } from 'react';
 import { SearchInput } from '@/shared/ui/search-input/SearchInput';
-import { useAuth } from '@/entities/session';
-import { useSession } from '@/entities/session';
-import { MobileNavbar } from '@widgets/navbar/MobileNavbar';
+import { useAuth, useSession } from '@/shared/core';
 
 const purpleIconFilter =
   'brightness(0) saturate(100%) invert(44%) sepia(31%) saturate(973%) hue-rotate(200deg) brightness(95%) contrast(90%)';
 
-export function Header() {
+export interface HeaderProps {
+  mobileNav?: ReactNode;
+}
+
+export function Header({ mobileNav }: HeaderProps = {}) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [activeItem, setActiveItem] = useState<string | null>(null);
 
@@ -41,6 +43,7 @@ export function Header() {
       </button>
     );
   };
+
   return (
     <header className="flex flex-col gap-4 border-b border-[#F4F4F4] px-4 py-4 pb-2 sm:flex-row sm:items-center sm:justify-between sm:px-8">
       <SearchInput
@@ -48,9 +51,7 @@ export function Header() {
         maxWidth="414px"
         onChange={() => {}}
       />
-      <div className="md:hidden">
-        <MobileNavbar />
-      </div>
+      {mobileNav && <div className="md:hidden">{mobileNav}</div>}
 
       <h2 className="text-center text-[16px] font-normal text-[#343E48] ">CRM Recruit</h2>
 
