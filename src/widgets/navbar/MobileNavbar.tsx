@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 
-import briefcase from '@shared/assets/navbar/briefcase.svg';
-import calendar from '@shared/assets/navbar/calendar.svg';
-import diagram from '@shared/assets/navbar/diagram.svg';
-import envelope from '@shared/assets/navbar/envelope.svg';
-import candidates from '@shared/assets/navbar/candidates.svg';
-import pig from '@shared/assets/navbar/pig.svg';
-import profile from '@shared/assets/navbar/profile.svg';
-import settings from '@shared/assets/navbar/settings.svg';
-import deals from '@shared/assets/navbar/deals.svg';
+import briefcase from '@/shared/assets/navbar/briefcase.svg';
+import calendar from '@/shared/assets/navbar/calendar.svg';
+import diagram from '@/shared/assets/navbar/diagram.svg';
+import envelope from '@/shared/assets/navbar/envelope.svg';
+import candidates from '@/shared/assets/navbar/candidates.svg';
+import pig from '@/shared/assets/navbar/pig.svg';
+import profile from '@/shared/assets/navbar/profile.svg';
+import settings from '@/shared/assets/navbar/settings.svg';
+import deals from '@/shared/assets/navbar/deals.svg';
 
 import { Menu, X } from 'lucide-react';
+import { useScrollLock } from '@/shared/lib/hooks';
 
 interface NavItem {
   icon: string;
@@ -39,16 +40,7 @@ export function MobileNavbar() {
 
   const closeMenu = () => setIsOpen(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   return (
     <>
@@ -89,7 +81,6 @@ export function MobileNavbar() {
             <Link
               key={item.link}
               to={item.link}
-
               onClick={closeMenu}
               className="flex items-center gap-3.5 rounded-xl px-3.5 py-3 text-sm font-medium text-slate-600 transition-colors hover:bg-[#707FDD]/10 hover:text-[#707FDD]"
               activeProps={{

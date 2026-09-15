@@ -1,9 +1,9 @@
-import { Navbar } from '@widgets/navbar/Navbar';
+import { Navbar } from '@/widgets/navbar/Navbar';
+import { MobileNavbar } from '@/widgets/navbar/MobileNavbar';
+import { Header } from '@/widgets/header/Header';
+import type { ReactNode } from 'react';
 
-import { Header } from '@widgets/header/Header';
-import React from 'react';
-
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen bg-white">
       <aside className="shrink-0 hidden md:flex">
@@ -12,7 +12,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="w-full">
-          <Header />
+          <Header mobileNav={<MobileNavbar />} />
         </header>
 
         <main className="flex-1 p-4 md:p-6">{children}</main>

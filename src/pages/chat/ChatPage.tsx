@@ -1,62 +1,15 @@
-import { useEffect, useRef } from 'react';
-import {
-  useDeleteChatMessage,
-  useLiveChatMessages,
-} from '@/entities/chat/api/chat.queries';
-import { SendChatMessage } from '@/features/send-chat-message/SendChatMessage';
-import { useAuth } from '@/entities/session';
+import { useDeleteChatMessage, useLiveChatMessages, useAuth } from '@/shared/core';
+import { SendChatMessage } from './components/send-chat-message/SendChatMessage';
 import { X, Users } from 'lucide-react';
 import { toast } from 'sonner';
-
-export const formatMessageTime = (timestamp: unknown): string => {
-  if (!timestamp) return '';
-  let date: Date;
-  if (
-    typeof timestamp === 'object' &&
-    'toDate' in timestamp &&
-    typeof (timestamp as { toDate: () => unknown }).toDate === 'function'
-  ) {
-    const firestoreDate = (timestamp as { toDate: () => unknown }).toDate();
-    if (firestoreDate instanceof Date) {
-      date = firestoreDate;
-    } else {
-      return '';
-    }
-  } else if (timestamp instanceof Date) {
-    date = timestamp;
-  } else if (typeof timestamp === 'number' || typeof timestamp === 'string') {
-    date = new Date(timestamp);
-  } else {
-    return '';
-  }
-  if (Number.isNaN(date.getTime())) {
-    return '';
-  }
-
-  return date.toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
+import { useAutoScroll } from '@/shared/lib/hooks';
+import { formatMessageTime } from './model/formatMessageTime';
 
 export function ChatPage() {
   const { messages, isLoading, error, retry } = useLiveChatMessages();
   const { user } = useAuth();
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const isFirstLoad = useRef(true);
+  const { scrollRef } = useAutoScroll<HTMLDivElement>({ dependency: messages });
   const { mutate: deleteMessage } = useDeleteChatMessage();
-
-  useEffect(() => {
-    if (messages.length === 0) return;
-
-    if (isFirstLoad.current) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
-      isFirstLoad.current = false;
-    } else {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages]);
-
   return (
     <div className="mx-auto flex h-[calc(100vh-6rem)] w-full max-w-4xl flex-col rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
       <div className="flex items-center justify-between border-b border-slate-100 bg-white px-6 py-4">
@@ -152,7 +105,7 @@ export function ChatPage() {
             );
           })
         )}
-        <div ref={messagesEndRef} />
+        <div ref={scrollRef} />
       </div>
 
       <div className="border-t border-slate-100 bg-white p-3">
