@@ -36,7 +36,6 @@ export function ActionBar({
 
   return (
     <div className="flex flex-col gap-3 border-t border-slate-200/80 bg-white px-4 py-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-      {/* Left side: Selection counter + Record counter */}
       <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
         {selectedCount > 0 && (
           <span className="rounded-md bg-slate-100 px-2 py-0.5 font-medium text-slate-900">

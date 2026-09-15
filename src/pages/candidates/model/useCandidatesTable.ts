@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
 import type { Candidate } from '@/entities/candidate';
+import { filterCandidates } from '@/entities/candidate/model/filter-candidates';
 import { DEFAULT_PROJECTS, type ProjectId } from '@/entities/project';
 import { useCandidatesQuery, useAddCandidatesToProject } from '@/shared/core';
 import { usePagination, useSelection } from '@/shared/lib/hooks';
 import { toast } from 'sonner';
 
 export interface UseCandidatesTableReturn {
-  // Data state
   candidates: Candidate[] | undefined;
   filteredCandidates: Candidate[];
   paginatedCandidates: Candidate[];
@@ -14,22 +14,18 @@ export interface UseCandidatesTableReturn {
   isError: boolean;
   error: Error | null;
 
-  // Search
   searchValue: string;
   handleSearchChange: (value: string) => void;
 
-  // Pagination
   currentPage: number;
   recordsPerPage: number;
   setCurrentPage: (page: number) => void;
   setRecordsPerPage: (size: number) => void;
 
-  // Selection
   selectedCandidateIds: string[];
   handleCandidateSelection: (candidateId: string, checked: boolean) => void;
   clearSelection: () => void;
 
-  // Project action
   handleAddToProject: (projectId: ProjectId) => void;
   isAddingToProject: boolean;
 }
@@ -41,22 +37,10 @@ export function useCandidatesTable(): UseCandidatesTableReturn {
 
   const [searchValue, setSearchValue] = useState('');
 
-  const filteredCandidates = useMemo(() => {
-    if (!candidates) return [];
-    const searchLower = searchValue.trim().toLowerCase();
-    if (!searchLower) return candidates;
-
-    return candidates.filter((candidate) => {
-      return (
-        candidate.name.toLowerCase().includes(searchLower) ||
-        candidate.title.toLowerCase().includes(searchLower) ||
-        candidate.city.toLowerCase().includes(searchLower) ||
-        candidate.owner.toLowerCase().includes(searchLower) ||
-        candidate.source.toLowerCase().includes(searchLower) ||
-        candidate.id.toLowerCase().includes(searchLower)
-      );
-    });
-  }, [candidates, searchValue]);
+  const filteredCandidates = useMemo(
+    () => filterCandidates(candidates, searchValue),
+    [candidates, searchValue]
+  );
 
   const pagination = usePagination<Candidate>({
     items: filteredCandidates,

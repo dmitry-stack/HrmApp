@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import type { Candidate } from '@/entities/candidate';
 import { DEFAULT_PROJECTS, type Project } from '@/entities/project';
 import { useCandidatesQuery } from '@/shared/core';
+import { calculatePipeline } from '../calculate-pipeline';
 
 export interface UseDealsPipelineOptions {
   candidates?: Candidate[];
@@ -24,31 +25,7 @@ export function useDealsPipeline(
   const projects = options.projects ?? DEFAULT_PROJECTS;
 
   const { candidatesByProject, totalWeightedPipeline, totalPipeline } = useMemo(() => {
-    const map = new Map<string, Candidate[]>();
-    projects.forEach((p) => map.set(p.id, []));
-
-    candidates.forEach((c) => {
-      if (c.projectId && map.has(c.projectId)) {
-        map.get(c.projectId)!.push(c);
-      }
-    });
-
-    let weightedSum = 0;
-    let totalSum = 0;
-
-    projects.forEach((proj) => {
-      const projectCandidates = map.get(proj.id);
-      if (projectCandidates && projectCandidates.length > 0) {
-        weightedSum += proj.weightedAmount;
-        totalSum += proj.totalAmount;
-      }
-    });
-
-    return {
-      candidatesByProject: map,
-      totalWeightedPipeline: weightedSum,
-      totalPipeline: totalSum,
-    };
+    return calculatePipeline(candidates, projects);
   }, [candidates, projects]);
 
   return {

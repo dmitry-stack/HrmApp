@@ -3,13 +3,14 @@ import { SendChatMessage } from './components/send-chat-message/SendChatMessage'
 import { X, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAutoScroll } from '@/shared/lib/hooks';
-import { formatMessageTime } from './model/formatMessageTime';
+import { formatMessageTime } from '@/entities/chat/model/format-message-time';
 
 export function ChatPage() {
   const { messages, isLoading, error, retry } = useLiveChatMessages();
   const { user } = useAuth();
   const { scrollRef } = useAutoScroll<HTMLDivElement>({ dependency: messages });
   const { mutate: deleteMessage } = useDeleteChatMessage();
+
   return (
     <div className="mx-auto flex h-[calc(100vh-6rem)] w-full max-w-4xl flex-col rounded-2xl border border-slate-200/80 bg-white shadow-sm overflow-hidden">
       <div className="flex items-center justify-between border-b border-slate-100 bg-white px-6 py-4">
