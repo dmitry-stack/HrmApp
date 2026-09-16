@@ -32,7 +32,6 @@ export function usePagination<T>({
   const totalRecords = items.length;
   const totalPages = Math.max(1, Math.ceil(totalRecords / pageSize));
 
-  // If current page is out of bounds due to item reduction, clamp safely
   const safeCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
 
   const fromRecord = totalRecords === 0 ? 0 : (safeCurrentPage - 1) * pageSize + 1;

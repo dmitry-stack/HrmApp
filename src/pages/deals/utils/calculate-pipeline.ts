@@ -1,5 +1,5 @@
-import type { Candidate } from '@/entities/candidate/model/types';
-import type { Project } from '@/entities/project/model/types';
+import type { Candidate } from '@/entities/candidate';
+import type { Project } from '@/entities/project';
 
 export function calculatePipeline(candidates: Candidate[], projects: readonly Project[]) {
   const map = new Map<string, Candidate[]>();

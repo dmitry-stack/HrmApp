@@ -1,4 +1,4 @@
-import type { ProjectId } from '@/entities/project/model/project';
+import type { ProjectId } from '@/entities/project';
 
 export interface Candidate {
   id: string;

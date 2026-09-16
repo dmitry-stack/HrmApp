@@ -10,7 +10,7 @@ import {
   doc,
   type Unsubscribe,
 } from 'firebase/firestore';
-import { db } from '@/shared/api/firebase';
+import { db } from '@/shared/firebase';
 import type { ChatMessage, SendMessageDto } from '@/entities/chat';
 
 const COLLECTION_NAME = 'chat';

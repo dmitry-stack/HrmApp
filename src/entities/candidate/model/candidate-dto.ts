@@ -1,6 +1,6 @@
 import type { Timestamp } from 'firebase/firestore';
-import type { ProjectId } from '@/entities/project/model/project';
-import type { Candidate } from '@/entities/candidate/model/candidate';
+import type { ProjectId } from '@/entities/project';
+import type { Candidate } from './candidate';
 
 export type CreateCandidateDto = Omit<Candidate, 'id' | 'profileUpdated'>;
 

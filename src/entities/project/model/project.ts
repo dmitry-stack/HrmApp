@@ -1,4 +1,12 @@
-import { DEFAULT_PROJECTS } from '@/entities/project/model/constants';
+import { DEFAULT_PROJECTS } from './constants';
 
 export type ProjectId = (typeof DEFAULT_PROJECTS)[number]['id'];
-export type Project = (typeof DEFAULT_PROJECTS)[number];
+
+export interface Project {
+  id: string;
+  name: string;
+  closeDate: string;
+  totalAmount: number;
+  weightedAmount: number;
+  currency: string;
+}

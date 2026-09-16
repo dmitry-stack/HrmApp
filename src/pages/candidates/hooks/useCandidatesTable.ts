@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import type { Candidate } from '@/entities/candidate';
-import { filterCandidates } from '@/entities/candidate/model/filter-candidates';
+import { filterCandidates } from '../utils/filter-candidates';
 import { DEFAULT_PROJECTS, type ProjectId } from '@/entities/project';
 import { useCandidatesQuery, useAddCandidatesToProject } from '@/shared/core';
 import { usePagination, useSelection } from '@/shared/lib/hooks';

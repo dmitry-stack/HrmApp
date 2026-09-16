@@ -4,7 +4,7 @@ import {
   signOut as firebaseSignOut,
   type UserCredential,
 } from 'firebase/auth';
-import { auth } from '@/shared/api/firebase';
+import { auth } from '@/shared/firebase';
 
 const googleProvider = new GoogleAuthProvider();
 

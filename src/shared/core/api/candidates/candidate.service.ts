@@ -11,7 +11,7 @@ import {
   writeBatch,
   deleteDoc,
 } from 'firebase/firestore';
-import { db } from '@/shared/api/firebase';
+import { db } from '@/shared/firebase';
 import { candidateConverter } from './candidate.converter';
 import type { Candidate, CreateCandidateDto } from '@/entities/candidate';
 import type { ProjectId } from '@/entities/project';
