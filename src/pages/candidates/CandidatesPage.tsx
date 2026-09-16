@@ -6,7 +6,7 @@ import { AddCandidateDialog } from './components/add-candidate/AddCandidateDialo
 import { AddToProject } from './components/add-to-project/AddToProject';
 import { DeleteCandidate } from './components/delete-candidate/DeleteCandidate';
 import { Loader2 } from 'lucide-react';
-import { useCandidatesTable } from './model/useCandidatesTable';
+import { useCandidatesTable } from './hooks/useCandidatesTable';
 
 export function CandidatesPage() {
   const {

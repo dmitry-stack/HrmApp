@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { calculatePipeline } from '@/pages/deals/calculate-pipeline';
-import type { ProjectId } from '@/entities/project/model/constants';
-import type { Project } from '@/entities/project/model/types';
-import type { Candidate } from '@/entities/candidate/model/types';
+import { calculatePipeline } from '@/pages/deals/utils/calculate-pipeline';
+import type { Project, ProjectId } from '@/entities/project';
+import type { Candidate } from '@/entities/candidate';
 
 const createMockCandidate = (overrides: Partial<Candidate> = {}): Candidate => ({
   id: 'cand-default',

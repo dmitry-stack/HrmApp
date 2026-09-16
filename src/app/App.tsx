@@ -3,7 +3,7 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './styles/index.css';
 import { routeTree } from './routeTree.gen';
-import { AuthContext, useAuthState } from '@/shared/core';
+import { AuthContext, useAuthState } from '@/shared/core/api/auth';
 import { Toaster } from '@/shared/ui/Sonner';
 
 declare module '@tanstack/react-router' {

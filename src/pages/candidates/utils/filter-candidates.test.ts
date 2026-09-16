@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { filterCandidates } from './filter-candidates';
-import type { Candidate } from './types';
+import type { Candidate } from '@/entities/candidate';
 
 const createCandidate = (overrides: Partial<Candidate> = {}): Candidate => ({
   id: 'c-1',

@@ -1,9 +1,10 @@
-import { useDeleteChatMessage, useLiveChatMessages, useAuth } from '@/shared/core';
+import { useDeleteChatMessage, useLiveChatMessages } from '@/shared/core';
+import { useAuth } from '@/shared/core/api/auth';
 import { SendChatMessage } from './components/send-chat-message/SendChatMessage';
 import { X, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAutoScroll } from '@/shared/lib/hooks';
-import { formatMessageTime } from '@/entities/chat/model/format-message-time';
+import { formatMessageTime } from './utils/format-message-time';
 
 export function ChatPage() {
   const { messages, isLoading, error, retry } = useLiveChatMessages();

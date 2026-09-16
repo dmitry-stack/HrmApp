@@ -1,6 +1,6 @@
 import { DealCard } from '@/widgets/deals-board/deal-card/DealCard';
 import { DealsSummary } from '@/widgets/deals-board/deals-summary/DealsSummary';
-import { useDealsPipeline } from './model/useDealsPipeline';
+import { useDealsPipeline } from './hooks/useDealsPipeline';
 
 export function DealsPage() {
   const { candidatesByProject, totalWeightedPipeline, totalPipeline, projects } =

@@ -1,5 +1,5 @@
 import { collection, writeBatch, doc, Timestamp } from 'firebase/firestore';
-import { db } from '@/shared/api/firebase';
+import { db } from '@/shared/firebase';
 import type { CandidateFirestoreDto } from '@/entities/candidate';
 
 const MOCK_CANDIDATES: CandidateFirestoreDto[] = [

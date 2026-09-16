@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import type { Candidate } from '@/entities/candidate';
 import { DEFAULT_PROJECTS, type Project } from '@/entities/project';
 import { useCandidatesQuery } from '@/shared/core';
-import { calculatePipeline } from '../calculate-pipeline';
+import { calculatePipeline } from '../utils/calculate-pipeline';
 
 export interface UseDealsPipelineOptions {
   candidates?: Candidate[];

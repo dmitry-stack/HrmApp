@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatMessageTime } from './format-message-time';
+import { formatMessageTime } from '@/pages/chat/utils/format-message-time';
 
 describe('formatMessageTime', () => {
   const timeFormatRegex = /\d{1,2}:\d{2}/;
